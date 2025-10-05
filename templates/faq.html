@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ template "sitelogimage" }}
+
+    <title>FAQ</title>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/aboutus.css">
+
+    <style>
+        body{
+        background-image: url('assets/Images/home_page_three.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment:fixed;
+        margin: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: lighter;
+}
+    </style>
+</head>
+<body>
+    {{ template "Header"}}
+
+    <div class="aboutus" style="height: 90vh; overflow-y: auto;">
+      <h1>Frequently Asked Questions</h1>
+      <p>
+           
+          <span style="font-weight: bolder;">Question:</span> When can one enroll in the Metaphysical course?</p>
+          <p>
+            <span  style="font-weight: bolder;">Answer:</span>Enrollment is open throughout the year, however graduation is only held twice in a year.
+        </p>
+
+        <p>
+            <span  style="font-weight: bolder;">Question:</span>   How is the Tuition fees structured?
+        </p>
+
+        <p>
+            <span  style="font-weight: bolder;">Answer:</span> Payment of tuition fees is very flexible, a student can either pay monthly or as a lumpsum. For a lumpsum, an aspiring student enjoys a 10% discount.
+          
+      </p>
+  </div>
+        
+
+</body>
+
+{{ template "footer" }}
+</html>

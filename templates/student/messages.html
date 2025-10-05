@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="/assets/css/studentportal.css?v=2.1">
+    <link rel="stylesheet" href="/assets/css/messages.css?v=1.4">
+    <script src="/assets/htmx.js"></script>
+</head>
+
+
+{{ define "messagesstudent"}}
+<body>
+    <div class="msg_header">
+       {{template "HeaderStudent" .}}
+
+    </div>
+    <div class="message_box">
+        <div class="messages" id="messageslist">
+            
+           {{ range .MsgBody }}
+                {{ if .Sender }}
+                    {{ template "loopmine" .}}
+                {{else}}
+                    {{template "loopsender" .}}
+                {{end}}
+                
+           {{end}}
+
+        </div>
+     
+        <div class="message_writer">
+            <form hx-post="/sendmessage/{{.StInfo.UUID}}"
+                hx-target="#messageslist"
+                hx-swap="beforeend"
+                hx-on::after-request="this.reset()">
+                <input type="text" placeholder="Message" name="message_content" class="write_message">
+                <button type="submit" class="send_message_btn">Submit</button>
+            </form>
+        </div>
+      
+    </div>
+</body>
+</html>
+
+{{end}}
+
+

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    {{ template "head_temp"}}
+    {{ template "sitelogimage" }}
+    {{ template "adminhearstyle"}}
+
+
+    <style>
+        .main_user{
+            position: fixed;
+            top: 20vh;
+            width: 100%;
+            height: 650px;
+            box-sizing: border-box;
+            padding-bottom: 70px;
+            display: block;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+      .details_btn{
+          display: block; 
+          text-decoration: none; 
+          text-align: center; 
+          width: 100px;
+          height: 30px;
+          background-color: rgb(32, 0, 62);
+          border: solid 1px rgb(32, 0, 62);
+          color: white;
+      }
+
+      .details_btn:hover{
+        color: rgb(32, 0, 62);
+        background-color: white;
+      }
+
+      .details_btn:visited{
+        color: white;
+      }
+
+      .details_btn:visited:hover{
+        color: rgb(32, 0, 62);
+      }
+
+      .updateadmin{
+        position: fixed;
+        left: 25vw;
+        top: 30vh;
+        height: 40vh;
+        width: 70vw;
+        border-radius: 3px;
+        border: solid 1px #333;
+
+      }
+
+      .uplable{
+        color: white;
+      }
+    </style>
+
+  </head>
+
+   
+  <body>
+    
+ 
+
+	{{ template "headernav" .}}
+
+
+    <div class="main_user">
+     
+        <div class="tochange" style="padding: 30px;">
+        
+        
+            {{ template "users_admin" .}}
+            
+               
+            
+        
+        </div>
+
+        <div class="updateadmin"  id="updateadmindiv" style="display: none;">
+
+        </div>
+       
+    </div>
+	
+	<div class="hidden_main" style="overflow-x: scroll">
+		
+		<h2 class="dashboard_name">
+			Lecturera
+		</h2>
+		<hr>
+		<div style="width: 100%; overflow-x: auto; font-size: 0.8em;">
+		 {{ template "users_admin" .}}
+		</div>
+	 </div>
+
+    
+
+
+
+
+
+
+
+    {{ define "users_admin"}}
+    <div class="lectures_main">
+        <h2>Lecturera Data</h2>
+        <hr>
+
+      
+        
+                
+        <div class="outer_div" id="form_holder" style="height: 30vh;">
+
+            <form hx-post="/createadmin"
+                hx-target="#adminuser_list"
+                hx-swap="beforeend">
+                <div class="form_div" style="height: 25vh;">
+                    <div class="segments">
+                        <label for="first_name">First Name</label><br>
+                        <input type="text" name="first_name" id="">
+                    </div>
+                    <div class="segments">
+                        <label for="last_name">Last Name</label><br>
+                        <input type="text" name="last_name" id="">
+                    </div>
+                    <div class="segments">
+                        <label for="email">Email</label><br>
+                        <input type="email" name="email" id="">
+                    </div>
+            
+                    <div class="segments">
+                        <label for="password">Password</label><br>
+                        <input type="text" name="password" id="">
+                    </div>
+                    <div class="segments">
+                        <label for="authority">User Authority</label>
+                        <select name="auth" id="">
+                            <option value="admin">Admin</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="download">Create</button>
+            </form>
+        </div>
+    
+        <div style="min-height: 60vh;  padding-bottom: 30px; overflow: auto;">
+        <table>
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Auth</th>
+                <th style="text-align: left;">Edit</th>
+            </tr>
+            </thead>
+            <tbody id="adminuser_list">
+                {{ range .Users}}
+                    {{ template "admin_user_tr" .}}
+                {{ end }}
+            </tbody>
+        </table>
+
+        </div>
+    </div>
+
+    {{ end }}
+
+
+
+{{ define "empty_tr"}}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+{{ end }}
+
+
+
+
+        {{ define "formtemplate"}}
+
+
+
+        <form hx-post="/createadmin"
+            hx-target="#adminuser_list"
+            hx-swap="beforeend">
+            <div class="form_div">
+                <div class="segments">
+                    <label for="first_name">First Name</label><br>
+                    <input type="text" name="first_name" id="">
+                </div>
+                <div class="segments">
+                    <label for="last_name">Last Name</label><br>
+                    <input type="text" name="last_name" id="">
+                </div>
+                <div class="segments">
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" id="">
+                </div>
+
+                <div class="segments">
+                    <label for="password">Password</label><br>
+                    <input type="text" name="password" id="">
+                </div>
+                <div class="segments">
+                    <label for="authority">User Authority</label>
+                    <select name="auth" id="">
+                        <option value="admin">Admin</option>
+                        <option value="general">General</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="download">Create</button>
+        </form>
+
+        {{ end }}
+
+{{ define "admin_user_tr"}}
+    <tr id="tr{{.UUID}}">
+        <td>{{.First_Name}}</td>
+        <td>{{ .Last_Name}}</td>
+        <td>{{ .Email}}</td>
+        <td>{{ .Password}}</td>
+        <td>{{ .Auth}}</td> 
+        <td><ul class="outer">
+            <li class="dropdown">
+                Edit
+                <ul class="inner" style="background-color: rgba(88, 6, 165, .4)">
+                    <li><button class="download"
+                        hx-post="/getupdate?uuid={{.UUID}}"
+                        hx-target="#updateadmindiv"
+                        hx-swap="outerHTML">Update</button></li>
+                    <li><button
+                        hx-post="/deleteadmin?uuid={{ .UUID}}"
+                        hx-target="#tr{{.UUID}}"
+                        hx-swap="outerHTML"
+                        class="deleteadmin">Delete</button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </td>
+    </tr>
+
+{{ end }}
+
+
+{{ define "updateform"}}
+
+
+    <div class="updateadmin" id="adminupdatediv" style="background-color: 
+    rgba(32, 0, 62, .9); 
+    border: solid 1px rgb(122, 120, 124); 
+    border-radius: 5px;">
+   
+        <div style="width: 100%; height: 30px; display: flex; margin-left: auto; margin-right: auto; justify-content: end;">
+            <button  style="
+            background-color: rgb(32, 0, 62);
+            color: white;
+            width: 50px; 
+            height: 25px;  
+            border: solid 1px rgb(32, 0, 62);" id="adminupclose" onclick="closeDiv()">X</button>
+        </div>
+        
+        <form 
+            hx-post="/updateadminuser?uuid={{.UUID}}"
+            hx-target="#tr{{.UUID}}"
+            hx-swap="outerHTML">
+
+            <div class="form_div" style="height: 90%; width: 100%;">
+                <div class="segments">
+                    <label for="first_name" class="uplable">First Name</label><br>
+                    <input type="text" name="first_name" id="" value="{{ .First_Name}}">
+                </div>
+                <div class="segments">
+                    <label for="last_name" class="uplable">Last Name</label><br>
+                    <input type="text" name="last_name" id="" value="{{ .Last_Name}}">
+                </div>
+                <div class="segments">
+                    <label for="email" class="uplable">Email</label><br>
+                    <input type="email" name="email" id="" value="{{ .Email}}">
+                </div>
+
+                <div class="segments">
+                    <label for="password" class="uplable">Password</label><br>
+                    <input type="text" name="password" id="" value="{{ .Password}}">
+                </div>
+                <div class="segments">
+                    <label for="authority" class="uplable">User Auth</label>
+                    <select name="auth" id="" >
+                        <option value="admin">Admin</option>
+                        <option value="general">General</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="download">Update btn</button>
+        </form>
+        
+
+    </div>
+        
+
+    <script>
+
+        function closeDiv() {
+            const div = document.getElementById('adminupdatediv');
+            div.style.display = 'none';
+        }
+        
+    </script>
+
+{{ end }}
+
+
+   
+</body>
+</html>

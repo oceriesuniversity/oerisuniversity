@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/formstyletwo.css?v=1.1">
+    {{ template "sitelogimage" }}
+    <title>Admin Login</title>
+    <script src="/assets/htmx.js"></script>
+    <style>
+      
+        :root {
+            --primary-color: #6A0DAD;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+            --text-color: #4A148C;
+            --light-gray: #f5f5f5;
+            --border-radius: 4px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-image: url('/assets/Images/home_page_three.png');
+            background-color: var(--light-gray);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: var(--text-color);
+        }
+        
+        .login-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+        
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #3a5a8f;
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .success-message {
+            color: var(--success-color);
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Admin Login</h1>
+        
+        <form  action="/admindashboard" method="POST" hx-indicator="#loading-indicator">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">Show</button>
+                </div>
+            </div>
+            
+            <button type="submit">
+                <span id="loading-indicator" class="loading" style="display: none;"></span>
+                Login
+            </button>
+            
+            <div id="login-result">
+                <p style="color:red;">Failed to login check user name or password</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.textContent = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.textContent = 'Show';
+            }
+        }
+        
+        // HTMX event handlers
+        document.body.addEventListener('htmx:beforeRequest', function() {
+            document.getElementById('loading-indicator').style.display = 'inline-block';
+        });
+        
+        document.body.addEventListener('htmx:afterRequest', function() {
+            document.getElementById('loading-indicator').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

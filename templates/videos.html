@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/studentportal.css?v=1.23">
+    <link rel="stylesheet" href="/assets/css/video.css?v=1.6">
+    <title>Video</title>
+</head>
+<body>
+    <header>
+        <div class="user_infor">
+            <div  class="program_name">
+                <h2>Program Name: </h2>
+    
+            </div>
+        </div>
+       
+    </header>
+
+
+    {{ if .Present }}
+        <div class="videoplayer">
+
+            <div class="videodiv">
+                <video controls>
+                    <source src="/assets/videos/mindfulness.mp4" type="video/mp4">
+        
+                </video> 
+            </div>
+
+            <div class="videolist">
+
+                {{ range .VideoList}}
+
+                    {{ template "video_list" .}}
+                {{ end }}
+        
+            
+                
+        
+            </div>
+        
+        </div>
+    
+    {{ else }}
+        <div class="videoplayer" style="border: solid 1px rgb(32, 0, 62); border-radius: 5px;">
+
+            <h1  style="margin-left: auto; margin-right: auto; margin-top: 20vh;">Sorry No Videos Currently Available</h1>
+        </div>
+
+    {{ end}}
+
+
+    
+</body>
+</html>
+
+
+{{ define "video_list"}}
+    <div class="coursevideos">
+            
+        <div class="coursevideo">
+            <video src="{{ .Video}}" type="video/mp4"></video>
+        </div>
+
+        <div class="videoname">
+            <p>Cource video discription</p>
+        </div>
+    </div>
+
+{{ end }}
+
+

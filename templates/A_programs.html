@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrative Dashboard</title>
+    <script src="/assets/htmx.js"></script>
+    {{ template "sitelogimage" }}
+    
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #9c27b0;
+            --primary-dark: #4a148c;
+            --text: #333;
+            --light-bg: #f5f5f5;
+            --card-bg: #fff;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: var(--primary-dark);
+            padding: 0.5rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d1c4e9;
+        }
+
+        /* Main Content Layout */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Card Styles */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.75rem;
+            background-color: var(--light-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .card-btn.update {
+            color: var(--primary);
+        }
+
+        .card-btn.delete {
+            color: #e53935;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-list {
+            list-style: none;
+        }
+
+        .card-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .card-list li:last-child {
+            border-bottom: none;
+        }
+
+        .card-footer {
+            padding: 1rem;
+            text-align: center;
+            background-color: var(--light-bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .details-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .details-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .user-info {
+                justify-content: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">OUCMPS</div>
+        <div class="user-info">
+            <span>Welcome, {{ .Admin_Name}}</span>
+            <div class="user-avatar">A</div>
+        </div>
+    </header>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="/programcards" class="dashbuttons">Programs</a></li>
+            <li><a href="/studentdata">Students</a></li>
+            <li><a href="/adminMessages">Messages</a></li>
+            <li><a href="/adminNews">News</a></li>
+            <li><a href="/get_admin_users">Lectures</a></li>
+            <li><a href="/get_matrics">Matrics</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <main class="main-content" id="main-content">
+            <div class="cards-container" id="cards-container">
+                <!-- Cards -->
+                
+
+                {{ if .DataAvailable}}
+                    {{ range .ProgramD}}
+                        <div class="card">
+                            <div class="card-header">
+                                <button class="card-btn update"><a class="btn2" style="display:block; text-decoration: none;" href="/updateprogramdetails?programCode={{ .Code}}">Update</a></button>
+                                
+                            </div>
+                            <div class="card-body">
+                                <h3>{{ .Name }}</h3>
+                                <ul class="card-list">
+                                    {{range .CourseNames}}
+                                        <li>{{.Name}}</li>
+                                    {{end}}
+                                   
+                                </ul>
+                                    
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn2" style="display:block; text-decoration: none;" href="/programdetails?programcode={{ .Code}}">Details</a>
+                            </div>
+                        </div>
+                        
+                    {{ end }}
+
+
+                {{ end }}
+                
+                
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <h2>Add New Program</h2>
+            <form hx-post="/createNewProgram" 
+                    hx-target="#cards-container"
+                    hx-swap="beforeend">
+
+                <div class="form-group" >
+                    <label for="project-name">Program Name</label>
+                    <input type="text" id="project-name" name="program_name" placeholder="Enter program name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="project-description">Program Code</label>
+                    <textarea id="project-description" placeholder="Enter program code" name="program_code"></textarea>
+                </div>
+
+                
+                <button type="submit" class="submit-btn">Create Program</button>
+            </form>
+        </aside>
+    </div>
+</body>
+</html>
+
+{{  define "programCardTemp" }}
+
+    <div class="card">
+    <div class="card-header">
+        <button class="card-btn update"><a class="btn2" style="display:block; text-decoration: none;" href="/updateprogramdetails?programCode={{ .Code}}">Update</a></button>
+        
+    </div>
+    <div class="card-body">
+        <h3>{{ .Name }}</h3>
+        <ul class="card-list">
+            {{range .CourseNames}}
+                <li>{{.Name}}</li>
+            {{end}}
+           
+        </ul>
+            
+    </div>
+    <div class="card-footer">
+        <a class="btn2" style="display:block; text-decoration: none;" href="/programdetails/?courseCode={{ .Code}}">Details</a>
+    </div>
+</div>
+{{ end }}
+
+{{  define "programCardTempEmpty" }}
+
+    <div class="card">
+    <div class="card-header">
+        <button class="card-btn update"><a class="btn2" style="display:block; text-decoration: none;" href="/updateprogramdetails?programCode={{ .Code}}">Update</a></button>
+        
+    </div>
+    <div class="card-body">
+        <h3>{{ .Name }}</h3>
+        
+            
+    </div>
+    <div class="card-footer">
+        <a class="btn2" style="display:block; text-decoration: none;" href="/programdetails/?courseCode={{ .Code}}">Details</a>
+    </div>
+    </div>
+{{ end }}

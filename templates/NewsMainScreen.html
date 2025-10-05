@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/newsAdmin.css?v=1.0">
+    <script src="/assets/js/color-modes.js"></script>
+
+    <title>News</title>
+    {{ template "sitelogimage" }}
+    
+    <style>
+        body{
+        background-image: url('/assets/Images/home_page_three.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment:fixed;
+        height: 100vh;
+        font-weight: lighter;
+  
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .leftside{
+            background-color: white;
+            margin-left: 10px;
+            border: solid 1px white;
+            border-radius: 3px;
+            overflow-y: scroll;
+        }
+        .rightsidee{
+            background-color: white;
+            margin-right: 10px;
+            border: solid 1px white;
+            border-radius: 3px;
+            overflow-y: scroll;
+            width: 300px;
+            height: 100vh;
+
+
+
+        }
+
+    </style>
+</head>
+<body>
+    {{ template "Header"}}
+    <div class="mainnewsdiv" style="margin-top: 30px; margin-bottom: 20px;">
+
+        <div class="leftside" id="newsarticle">
+
+            {{ if .Present}}
+                {{ template "newsmain" .}}
+
+            {{ end }}
+        
+        </div>
+        
+        <div class="rightsidee">
+            <h2 class="news" style="text-align: center;">
+                More News Stories
+            </h2>
+
+            {{ range .NewsList}}
+                {{ template "newsdemo" .}}
+            {{ end }}
+            
+    
+            
+        </div>
+    </div>
+</body>
+
+
+{{ template "footer"}}
+</html>
+
+
+{{ define "newsmain"}}
+
+
+    <div class="newsimagediv" style="border: none;">
+        <img src="news/{{.NewsMain.Image_Link}}" alt="{{.NewsMain.Title}}" class="newsimage" style="border: none;">
+    </div>
+
+    <div class="newsarticle" >
+    
+        <div class="newsheader">
+            <h2 class="newsheadertext">{{ .NewsMain.Title}}</h2>
+            <h5 class="authername">{{ .NewsMain.Auther}}</h5>
+        </div>
+
+        <div class="newscontent">
+            <p class="newsparagraphs">
+
+            {{ .NewsMain.Story }}
+            </p>
+
+            
+        </div>
+    </div>
+
+{{ end }}
+
+
+
+{{ define "news_one"}}
+
+
+    <div class="newsimagediv" style="border: none;">
+        <img src="news/{{.Image_Link}}" alt="{{.Title}}" class="newsimage" style="border: none;">
+    </div>
+
+    <div class="newsarticle" >
+    
+        <div class="newsheader">
+            <h2 class="newsheadertext">{{ .Title}}</h2>
+            <h5 class="authername">{{ .Auther}}</h5>
+        </div>
+
+        <div class="newscontent">
+            <p class="newsparagraphs">
+
+            {{ .Story }}
+            </p>
+
+            
+        </div>
+    </div>
+
+{{ end }}
+
+
+{{ define "newsdemo"}}
+
+
+
+
+<div class="newssample" 
+            hx-get="/readnewsstory?uuid={{ .UUID}}"
+            hx-target="#newsarticle"
+            hx-swap="innerHTML"
+            style="background-color: white; 
+            border: solid 1px black; 
+            border-radius: 5px; 
+            background-image: url('news/{{.Image_Link}}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;">
+    
+    <div class="spacefiller">
+
+    </div>
+
+    <div class="newssummary">
+    <p>
+        
+        {{ .Story}}
+     </p>
+    </div>
+               
+</div>
+{{ end }}
+
+
+
+
+
+
+
+
+
+

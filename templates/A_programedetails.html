@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrative Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/cource_data.css">
+    {{ template "sitelogimage" }}
+    
+    <script src="/assets/htmx.js"></script>
+
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #9c27b0;
+            --primary-dark: #4a148c;
+            --text: #333;
+            --light-bg: #f5f5f5;
+            --card-bg: #fff;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .createExam{
+            width: 90px;
+            height: 25px;
+            color: whitesmoke;
+            background-color: rgb(32, 0, 62);
+            border: solid 1px rgb(32, 0, 62);
+            border-radius: 3px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .createExam:hover{
+            color:  rgb(32, 0, 62);
+            background-color: white;
+
+        }
+
+        .createExam:active{
+            color: rgb(32, 0, 62);
+        }
+
+        .customTr:hover a{
+            background-color: white;
+            color: rgb(32, 0, 62);
+        }
+
+      .truncate {
+        width: 200px; 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .create_cource_div{
+        background-color: white;
+        position: fixed;
+        top: 25vh;
+        left: 30vw;
+
+      }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: var(--primary-dark);
+            padding: 0.5rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d1c4e9;
+        }
+
+        /* Main Content Layout */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Card Styles */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.75rem;
+            background-color: var(--light-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .card-btn.update {
+            color: var(--primary);
+        }
+
+        .card-btn.delete {
+            color: #e53935;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-list {
+            list-style: none;
+        }
+
+        .card-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .card-list li:last-child {
+            border-bottom: none;
+        }
+
+        .card-footer {
+            padding: 1rem;
+            text-align: center;
+            background-color: var(--light-bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .details-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .details-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .user-info {
+                justify-content: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">OUCMPS</div>
+        <div class="user-info">
+            <span>Welcome, {{ .Admin_Name}}</span>
+            <div class="user-avatar">A</div>
+        </div>
+    </header>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="/programcards?out={{ .Admin.ID}}" class="dashbuttons">Programs</a></li>
+            <li><a href="/studentdata?out={{ .Admin.ID}}">Students</a></li>
+            <li><a href="/adminMessages?out={{ .Admin.ID}}">Messages</a></li>
+            <li><a href="/adminNews?out={{ .Admin.ID}}">News</a></li>
+            <li><a href="/get_admin_users?out={{ .Admin.ID}}">Lectures</a></li>
+            <li><a href="/get_matrics?out={{ .Admin.ID}}">Matrics</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <main class="main-content" id="main-content">
+            <h3 style="margin-bottom: 30px;">{{ .Program_Name}}</h3>
+            <hr style="margin-bottom: 20px;">
+            <div class="cource_data_div" style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <th>Cource Name</th>
+                            <th>Cource Code</th>
+
+                            <th>Book</th>
+                            <th>Module</th>
+                            <th>Videos</th>
+                            <th>Assesment</th>
+                            <th>Exam</th>
+                
+                
+                        </thead>
+                        <tbody  id="cource_data_table_tr" >
+
+                            {{ if .Present }}
+                                {{ range .ProgramData }}
+                                    {{ template "cource_data_tr_two" .}}
+                                {{ end }}
+                            {{ end }}
+                            
+                        </tbody>
+                    </table>
+                    </div>
+        </main>
+
+        <aside class="sidebar" id="sidebarupdate">
+            <h2>Add New Course</h2>
+            <form hx-post="/createnewcourse" 
+                    hx-target="#cource_data_table_tr"
+                    hx-swap="beforeend">
+
+                <div class="form-group" >
+                    <label for="project-name">Program Code</label>
+                    <input type="text" id="project-name" name="program_name" value="{{.Program_Name}}" placeholder="{{ .Program_Name}}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project-description">Course Name</label>
+                    <textarea id="project-description" placeholder="Enter Course Name" name="cource_name" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Course Code</label>
+                    <textarea id="project-description" placeholder="Enter Course Code" name="course_code" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Recommended Book</label>
+                    <textarea id="project-description" placeholder="Enter Recommended Books" name="book_link"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Module</label>
+                    <textarea id="project-description" placeholder="Enter Module Link" name="module_link"></textarea>
+                </div>
+                  <div class="form-group">
+                    <label for="project-description">Assesments</label>
+                    <textarea id="project-description" placeholder="Enter Assesment Link" name="assesment_link"></textarea>
+                </div>
+                   <div class="form-group">
+                    <label for="project-description">Video List</label>
+                    <textarea id="project-description" placeholder="Enter Video List (video links must be separeted by a ','!!)" name="video_link"></textarea>
+                </div>
+
+
+                
+                <button type="submit" class="submit-btn">Create Course</button>
+            </form>
+        </aside>
+    </div>
+</body>
+</html>
+
+
+{{ define "cource_data_tr_two"}}
+
+<tr id="tr{{.UUID}}">
+    <td class="truncate" id="c_name_clean">{{ .Cource_Name}}</td>
+    <td class="truncate" id="c_name_clean">{{ .Cource_Code}}</td>
+
+    <td class="truncate">{{ .Book}}</td>
+    <td class="truncate">{{ .Module}}</td>
+    <td class="truncate">{{ .Video_List}}</td>
+    <td class="truncate">{{ .Cource_Aseesment}}</td>
+
+    <td class="customTr"> 
+        <a href="/createexampage?uuid={{.UUID}}&exam_present={{.Exam}}" style="text-decoration: none; color: white" class="createExam">Exam</a>
+    </td>
+
+    <td> <button hx-get="/updatecourcedata?cource_uuid={{.UUID}}"  
+                hx-target="#sidebarupdate"
+                hx-swap="outerHTML" 
+                class="download">Edit Data</button>
+    </td>
+
+
+    <td><button hx-get="/delete_cource_data?cource_uuid={{.UUID}}&cource_name={{ .Cource_Code}}"  
+        hx-target="#tr{{.UUID}}"
+        hx-swap="outerHTML" 
+        class="download">
+        Delete
+    </button>
+    </td>
+</tr>
+
+<script>
+
+    function replaceUnderscores() {
+    const toclean = document.getElementById('c_name_clean');
+  
+    const originalText = toclean.textContent;
+
+  
+    if (originalText.includes('_')) {
+        const updatedText = originalText.replaceAll('_', ' ');
+        toclean.textContent = updatedText;
+    }
+
+    }
+
+    document.addEventListener('DOMContentLoaded', replaceUnderscores);
+
+</script>
+
+
+{{ end }}
+
+
+
+
+
+{{ define "updatecoursedatanew"}}
+    <aside class="sidebar" id="sidebarupdate">
+    <h2>Update Course</h2>
+            <form hx-post="/createnewcourse" 
+                    hx-target="#{{.UUID}}"
+                    hx-swap="outerHTML">
+
+                <div class="form-group" >
+                    <label for="project-name">Program Code</label>
+                    <input type="text" id="project-name" name="program_name" value="{{.Program_Name}}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project-description">Course Name</label>
+                    <textarea id="project-description" placeholder="Enter program code" name="cource_name"  required >{{ .Cource_Name}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Course Code</label>
+                    <textarea id="project-description" placeholder="Enter program code" name="course_code" required >{{ .Cource_Code}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Recommended Book</label>
+                    <textarea id="project-description" placeholder="Enter program code" name="book_link" >{{ .Book}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Module</label>
+                    <textarea id="project-description" placeholder="Enter program code" name="modole_link" >{{ .Module }}</textarea>
+                </div>
+                  <div class="form-group">
+                    <label for="project-description">Assesments</label>
+                    <textarea id="project-description" placeholder="Enter program code" name="assesment_link" >{{ .Cource_Aseesment}}</textarea>
+                </div>
+                   <div class="form-group">
+                    <label for="project-description">Video List</label>
+                    <textarea id="project-description" placeholder="Enter program code" name="video_link" >{{ .Video_List }}</textarea>
+                </div>
+
+
+                
+                <button type="submit" class="submit-btn">Update Course</button>
+            </form>
+        </aside>
+
+{{ end }}

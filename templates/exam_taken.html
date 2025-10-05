@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ template "sitelogimage" }}
+
+    <title>Exam Taken</title>
+
+    <style>
+        *{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: lighter;
+        }
+        body{
+            background-image: url("/assets/Images/home_page_three.png");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: 100vw, 100vh ;
+        }
+        .main_div{
+            text-align: center;
+            width: 40vw;
+            height: 55vh;
+            border: solid 1px rgb(32, 0, 62);
+            border-radius: 5px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 25vh;
+            background-color: rgba(255, 255, 255, 0.5);
+        
+        }
+        .return_home{
+            text-align: center;
+            text-decoration: underline;
+            color: rgb(32, 0, 62);
+            text-decoration-color: rgb(32, 0, 62);
+
+        }
+        .return_home:hover{
+            text-decoration-color: rgb(86, 5, 161);
+        }
+        .image_style{
+            width: 15vw;
+            height: 30vh;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="main_div">
+        <h2 class="header">Successfull</h2>
+        <img src="/assets/Images/check_purple.png" class="image_style" alt="successfully">
+        <p>Exam has been successfully handed in, check back in 24hr for results</p>
+
+        <a href="/studentprofileportal/{{.}}" class="return_home">Return to Dash Board</a>
+    </div>
+    
+</body>
+</html>

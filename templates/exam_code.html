@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/exam_css.css">
+    {{ template "sitelogimage" }}
+    
+    <style>
+        
+        .timer_p {
+            font-weight: bold;
+            font-size: 1.1em;
+            text-decoration: underline;
+        }
+    </style>
+	
+	<script>
+				
+		history.pushState(null, document.title, location.href);
+		window.addEventListener('popstate', function (event) {
+			history.pushState(null, document.title, location.href);
+		});
+	</script>
+    
+</head>
+<body>
+    
+    
+    {{ template "write_div" .}}
+    
+
+
+
+
+
+{{ define "exam_passed"}}
+    <div style="width: 60vw; height: 70vh; border: solid 1px rgb(32, 0, 62); border-radius: 5px; margin-left: auto; margin-right: auto; margin-top: 10vh;">
+        <div>
+            <h1 style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: lighter;">{{ .Program_Name}}</h1>
+
+            <div style="display: flex;width: 30%; height: 30vh; margin-left: auto; margin-right: auto;">
+                <img src="/assets/Images/graduation-diploma.png" alt="" style="width: 200px; height: 200px; display: block; margin-left: auto;margin-right: auto;"></div>
+
+            <h2 style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: lighter;">Congratulatons</h2>
+            <p style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: lighter;">You have completed you studies in {{ .Cource_Name}}</p>
+            <h3 style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: lighter;">{{ .Grade}}%</h3>
+
+        </div>
+    </div>
+
+{{ end }}
+
+{{ define "write_div"}}
+    <div class="header"> 
+        <div class="timer_div">
+            <p class="timer_p" style="font-size: 1.2em;">Remaining Time <span id="timer_count"> </span> <span id="hr">00</span>hr <span id="min">00</span>min <span id="sec"></span>sec</p>
+        </div>
+        <div class="headerLogWrite" style="width: 100%; height: 205px; margin-left: auto; margin-right: auto;display: flex; justify-content: center;">
+            <img src="/assets/Images/school_logo.png" class="logo" style="width: 200px; height: 170px;  margin-left:auto; margin-right: auto;">
+        </div>
+        <div class="exam_details">
+            <table>
+                <tbody>
+                    <tr>
+                        <th class="title">Program</th>
+                        <td>{{ .ExamData.Program_Name}}</td>
+                    </tr>
+                    <tr>
+                        <th class="title">Cource Name</th>
+                        <td>{{ .ExamData.Cource_Name}}</td>
+
+                    </tr>
+                    <tr>
+                        <th class="title">Cource Code</th>
+                        <td>{{ .ExamData.Cource_Code }}</td>
+                    </tr>
+                    <tr>
+                        <th class="title">Duration</th>
+                        <td id="duration">{{ .ExamData.Exam_Duration}}min</td>
+                    </tr>
+                
+                    <tr>
+                        <th class="title">Total  Marks</th>
+                        <td>{{ .ExamData.Total_Marks}}</td>
+                    </tr>
+                    <tr>
+                        <th class="title">Attempt Number</th>
+                        <td>{{ .Attempt_Number}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="instractions">
+                <ol style="list-style: decimal;">
+                    <li>The question paper has two sections, A and B
+                        <ol style="list-style: lower-roman;">
+                            <li>Answer <span style="font-weight: bolder;">ALL</span> questions in Section A,</li>
+                            <li>and answer only <span>THREE</span> Questions out of the seven Questions in Section B</li>
+                        </ol>
+                    </li>
+                    <li>Section A carries 40 Marks and Section B carries 60 Marks</li>
+                    <li>University College of Metaphysical Sciences (OCMPS) allows the student to attempt the
+                        final examinations three times within 7 days. There after a different supplementary final
+                        examination will be PREPARED and availed to the student within three.</li>
+                </ol>
+            </div>
+            <div>
+                <p class="warning_text">
+                    YOU ARE YOUR OWN OWNER FOR THIS EXAMINATION. AND DO NOT SHARE WITH NON REGISTERED STUDENTS OF OCERIES UNIVERSITY OF METAPHYSICAL SCIENCES.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="write_div">
+       
+        <form action="/submitexam?cource_uuid={{.Cource_UUIDOut}}&student_uuid={{ .Student_UUID}}&cource_name={{ .Cource_Name_Two}}&attempt_out = {{ .Attempt_Out}}" method="POST">
+                {{ template "section_a" .}}
+                {{ template "section_b" .}}
+
+                
+            
+        
+
+            <div style="width: 100%; height: 10vh; padding-top: 20px;">
+                <button  type="submit" class="submit_exam" id="submit_btn" style="margin-bottom: 30px;">Submit</button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        var hr = 0;
+        var minute = 0;
+        var second = 0;
+        hiden_count  = 0
+
+        timer_get = "{{.ExamData.Exam_Duration}}";
+
+
+        const timerInt = parseInt(timer_get, 10);
+
+
+        const timerDuration = 1000 * timerInt * 60;
+
+
+        function submitFormAndRedirect() {
+            //document.getElementById('myForm').submit();
+            window.location.href = "/submitexam?cource_uuid={{.Cource_UUIDOut}}&student_uuid={{ .Student_UUID}}&cource_name={{ .Cource_Name_Two}}&attempt_out = {{ .Attempt_Out}}";
+
+        }
+
+  
+        function updateTimerDisplay(seconds) {
+            document.getElementById('timer').innerText = `Form will be submitted in ${seconds} seconds...`;
+        }
+
+        
+
+       
+        setTimeout(submitFormAndRedirect, timerDuration);
+    
+
+
+
+    window.onload = function() {
+        var incrementSecond = function () {
+        window.secondsPassed += 1;
+
+        second = window.secondsPassed;
+        
+        
+        
+        document.getElementById("sec").innerHTML = secondsPassed;
+        submit_button = document.getElementById("submit_btn");
+        timer_get = "{{ .ExamData.Exam_Duration}}";
+
+        console.log(timer_get)
+
+        hiden_count  = 0
+
+        const timerInt = parseInt(timer_get, 10);
+
+        
+        
+        if( window.secondsPassed == 60 ){
+            window.secondsPassed = 0;
+            minute ++ ;
+            hiden_count ++;
+            document.getElementById("min").innerHTML = minute;
+        }
+
+        if (minute == 60){
+            minute = 0;
+            hr ++ ;
+            document.getElementById("hr").innerHTML = hr;}
+        }
+
+        window.secondsPassed = 0;
+
+        window.myTimer = setInterval(incrementSecond, 1000);
+        }
+        var onSubmitClick = function() {
+        window.clearInterval(window.myTimer); 
+
+        function submitFormAndRedirect() {
+        
+            document.getElementById('myForm').submit();
+
+        }
+
+        function updateTimerDisplay(seconds) {
+            document.getElementById('timer').innerText = `Form will be submitted in ${seconds} seconds...`;
+        }
+
+    }
+    </script>
+{{ end }}
+
+
+
+{{ define "section_a"}}
+
+    <p style="font-weight: bold;">SECTION A</p>
+    <p style="font-weight: bold;">
+        ANSWER ALL THE QUESTIONS IN THIS SECTION, QUESTION 1 TO 20 CARRIES ONE MARK.
+        KINDLY NOTE THAT WRONG ANSWER WILL RESULT IN THE DEDUCTION OF A MARK
+    </p>
+    {{ range .Exam_Questions }}
+
+        {{ if eq .Section "A"}}
+            <div>
+                <p class="section_question">{{ .Question}}</p>
+                <label for="true" style="font-weight: bold; padding: 10px">True</label>
+                <input type="radio" name="{{ .Question_UUID}}" value="true">
+                <label for="false" style="font-weight: bold;">False</label>
+                <input type="radio" name="{{ .Question_UUID}}" value="false">
+            </div>
+        {{ end }}
+
+    {{ end }}
+{{ end }}
+
+{{ define "section_b"}}
+    <p  style="font-weight: bold;">SECTION B</p>
+    <p  style="font-weight: bold;">Answer THREE questions only</p>
+
+    {{ range .Exam_Questions }}
+
+        {{ if eq .Section "B"}}
+            <div>
+                <p class="section_question">{{ .Question}}</p>
+                <textarea name="{{ .Question_Number }}"  name="{{ .Question_UUID}}" class="section_b_answer" style="padding: 10px;"></textarea>
+                
+            </div>
+        {{ end }}
+    {{ end }}
+
+{{ end }}
+
+
+</body>
+</html>
+
+<!-- <form action="/action_page.php">
+    <p>Please select your favorite Web language:</p>
+    <input type="radio" id="html" name="fav_language" value="HTML">
+    <label for="html">HTML</label><br>
+    <input type="radio" id="css" name="fav_language" value="CSS">
+    <label for="css">CSS</label><br>
+    <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+    <label for="javascript">JavaScript</label>
+  
+    <br>  
+  
+    <p>Please select your age:</p>
+    <input type="radio" id="age1" name="age" value="30">
+    <label for="age1">0 - 30</label><br>
+    <input type="radio" id="age2" name="age" value="60">
+    <label for="age2">31 - 60</label><br>  
+    <input type="radio" id="age3" name="age" value="100">
+    <label for="age3">61 - 100</label><br><br>
+    <input type="submit" value="Submit">
+  </form>
+  
+  </body> -->

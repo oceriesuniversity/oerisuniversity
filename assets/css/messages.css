@@ -1,0 +1,150 @@
+
+.message_box{
+    height: 90vh;
+    position: relative;
+    width: 80vw;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.delete{
+    cursor: pointer;
+    width:95%;
+    padding: 3px;
+    display: flex;
+    justify-items: end;
+    background-color: aqua;
+    height: 30px;
+    margin: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
+}
+
+.delete p{
+    color: rgb(112, 1, 1);
+    display: inline-block;
+    padding: 2px;
+    height: 20px;
+    
+}
+
+.delete p:hover{
+    background-color: white;
+    color: rgba(32, 0, 67, .2);
+}
+
+.messages{
+    position: relative;
+    height: 50%;
+    width: 99%;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px rgb(32, 0, 67);
+    border-radius: 5px;
+    overflow-y: scroll;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.message_writer{
+  
+    height: 30%;
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    display: inline-block;
+
+
+}
+
+.write_message{
+    display: inline-block;
+    position: relative;
+    font-size: 16px;
+    width: 90;
+    height: 50px;
+    border: solid 1px rgb(32, 0, 67);
+    border-radius: 5px;
+    margin-top: 5px;
+    padding-left: 5px;
+}
+
+.send_message_btn{
+    display: inline-block;
+    position: relative;
+    background-color: rgb(32, 0, 67);
+    height: 50px;
+    border: solid 1px rgb(32, 0, 67);
+    border-radius: 5px;
+    width: 10%;
+    color: white;
+    font-size: 0.9em;
+	pointer: cursor;
+}
+
+.send_message_btn:hover{
+    background-color: white;
+    color: rgb(32, 0, 67);
+}
+
+
+.recieved{
+   
+
+    border: solid 1.5px rgb(32, 0, 67);
+    border-radius: 3px;
+    padding: 5px;
+    width: 50%;
+    height: fit-content;
+   
+    font-size: 17px;
+    margin-bottom: 4px;
+
+
+}
+
+.sent{
+    
+    margin-left: 50%;
+    border: solid 1.5px rgb(32, 0, 67);
+    background-color: rgb(32, 0, 67);
+    color: white;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 17px;
+    width: 50%;
+    height: fit-content;
+    margin-bottom: 4px;
+
+}
+
+.text_box_left{
+    margin: 5px;
+    display: flex;
+    align-items: start;
+    height: fit-content;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text_box_right{
+    margin: 5px;
+    display: flex;
+    align-items: end;
+    height: fit-content;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+

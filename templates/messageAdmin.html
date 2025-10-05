@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	 {{ template "head_temp"}}
+     {{ template "adminhearstyle"}}
+     <style>
+        .standalone-form {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(106, 13, 173, 0.2);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border: 2px solid #8a2be2;
+        }
+        
+        .form-title {
+            color: #6a0dad;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #d8bfd8;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #9370db;
+            box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.2);
+        }
+        
+        .submit-btn {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #5c0a9e;
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        </style>
+    </head>
+
+
+
+    <body>
+       
+	  <div>
+	    {{ template "headernav" .}}
+		{{ template "messageAdmin" .}}
+	  </div>
+	  
+	  <div class="hidden_main" style="overflow-x: scroll">
+		<button onclick=msglogOpen()  class="openMsg">
+			Msg
+		  </button>
+		<h2 class="dashboard_name" style="padding-left: 60px">
+			Messages
+		</h2>
+		<hr>
+		<div class="messagedivadmin">
+
+			
+			<div class="adminleft">
+				<div id="readmessagesdiv">
+
+				</div>
+			   
+			</div>
+
+		</div>
+	  
+	  </div>
+	  
+	
+	 
+		
+
+	  
+	  <div class="hiddenmsglog" id="hiddenmsglog">
+		<div class="closeMsg" style="height: 45px; padding: 3px;">
+			<button onclick="msglogClose()"> X </button>
+		</div>
+		
+		{{ template "messageslog" .}}
+			
+			
+	  </div>
+	  
+	<script>
+		
+		
+		function msglogOpen(){
+			const msglogs = document.getElementById('hiddenmsglog')
+			   msglogs.style.display = 'block'
+			   console.log("open side");
+		  }
+
+		  function msglogClose(){
+			   const msglogs = document.querySelector('.hiddenmsglog')
+			   msglogs.style.display = 'none'
+			   console.log("open side");
+		  }
+	</script>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+{{define "messageAdmin"}} 
+    <h2 class="dashboard_name">
+        Messages
+    </h2>
+    <hr>
+    <div class="messagedivadmin">
+
+        
+        <div class="adminleft" style="border: solid 1px black; margin-left: 20px; margin-right: 20px; border-radius: 5px;" >
+
+
+            <div id="readmessagesdiv">
+
+            </div>
+           
+        </div>
+
+
+        <div class="adminright" style="border: solid 1px black; margin-right: 20px; border-radius: 5px;">
+            <div class="search">
+                 <div class="standalone-form">
+                    
+                    <form hx-post="/sendbulleting"
+                    hx-target="#messagelog"
+                    hx-swap="innerHTML">
+                        <div class="form-group">
+                            <textarea placeholder="Send a system wide bulleting type your message here..." name="message_bulleting" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+               
+                </div>
+               
+            </div>
+            <div id="messagelog">
+                {{ template "messageslog" .}}
+            </div>
+        </div>
+
+    </div>
+{{end}}
+
+
+{{ define "messageslog"}}
+
+    {{ range .Msg}}
+
+        {{ if .Seen_Admin}}
+        <div class="messagelogseen"
+                    hx-get="/readmessageadmin?student_uuid={{.Student_UUID}}&message_seen=seen"
+                    hx-target="#readmessagesdiv"
+                    hx-swap="innerHTML">
+            <div class="senderdetails"> 
+                <p>{{ .Sender_Name }}</p>
+            </div>
+            <div class="message">
+                <p class="messagetext">
+                    {{ .Message}}
+                </p>
+                <div class="datecreated">
+                    <p>{{.Date}}</p>
+                </div>
+            </div>
+        </div>
+        {{ else }}
+                <div class="messagelognotseen"
+                    hx-get="/readmessageadmin?student_uuid={{.Student_UUID}}&message_seen=not"
+                    hx-target="#readmessagesdiv"
+                    hx-swap="innerHTML">
+                    <div class="senderdetails"> 
+                        <P>{{.Sender_Name}}</P>
+                    </div>
+                    <div class="message">
+                        <p class="messagetext">
+                            {{ .Message}}
+                        </p>
+                    </div>
+                    <div class="datecreated">
+                        <p>{{ .Date }}</p>
+                    </div>
+
+                </div>
+
+        {{ end }}
+
+    {{ end }}
+{{end}}
+
+
+{{ define "composemessage"}} 
+<div class="message_box">
+    <div class="messages" id="messageslist">
+        
+       
+    </div>
+ 
+    <div class="message_writer">
+        <form hx-post="/composemessage"
+            hx-target="#messageslist"
+            hx-swap="beforeend"
+            hx-on::after-request="this.reset()">
+            
+            <input type="text" name="studentdetails" class="composemessage" placeholder="Student number">
+
+            <input type="text" placeholder="Message" name="message_content" class="writemessage">
+            <div class="btnend">
+                <button type="submit" class="sendmessagebtn">Send</button>
+            </div>
+            
+        </form>
+    </div>
+  
+</div>
+
+{{end}}
+
+
+{{ define "readMessagesAdmin"}}
+    <div class="message_box_admin">
+        <h5><a href="/studentedataadmin/{{ .StInfo.UUID }}"></a>{{ .StInfo.First_Name}} {{ .StInfo.Last_Name}} </h5>
+        <div class="messages" id="messageslist">
+            
+           {{ range .Messages }}
+                {{ if .Sender}}
+                    {{template "left" .}}
+
+                {{else}}
+                    {{ template "right" .}}
+
+                {{end}}
+                
+           {{end}}
+
+        </div>
+     
+        <div class="message_writer" >
+            <form hx-post="/sendmessage?student_uuid={{.StInfo.UUID}}&from=admin"
+                hx-target="#messageslist"
+                hx-swap="beforeend"
+                hx-on::after-request="this.reset()">
+                <textarea name="message_content" style="width: 100%; margin-bottom: 10px; margin-top:10px; border: solid 1px rgb(32, 0, 62); border-radius: 3px; padding-left: 4px;"></textarea>
+                <button type="submit" class="send_message_btn" style="display:block;">Submit</button>
+            </form>
+        </div>
+      
+    </div>
+
+{{end}}

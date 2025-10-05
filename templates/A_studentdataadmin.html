@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrative Dashboard</title>
+    <script src="/assets/htmx.js"></script>
+    {{ template "sitelogimage" }}
+    
+     <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #9c27b0;
+            --primary-dark: #4a148c;
+            --text: #333;
+            --light-bg: #f5f5f5;
+            --card-bg: #fff;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .table_div{
+            overflow-x: scroll;
+            overflow-y: visible;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+    
+        }
+        body {
+            background-color: var(--light-bg);
+            color: var(--text);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: var(--primary-dark);
+            padding: 0.5rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d1c4e9;
+        }
+
+        /* Main Content Layout */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Card Styles */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.75rem;
+            background-color: var(--light-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .card-btn.update {
+            color: var(--primary);
+        }
+
+        .card-btn.delete {
+            color: #e53935;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-list {
+            list-style: none;
+        }
+
+        .card-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .card-list li:last-child {
+            border-bottom: none;
+        }
+
+        .card-footer {
+            padding: 1rem;
+            text-align: center;
+            background-color: var(--light-bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .details-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .details-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .user-info {
+                justify-content: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+        }
+
+        	a {
+        cursor: pointer;
+                }
+
+
+	      .details_btn{
+	          display: block; 
+	          text-decoration: none; 
+	          text-align: center; 
+	          width: 100px;
+	          height: 30px;
+	          background-color: rgb(32, 0, 62);
+	          border: solid 1px rgb(32, 0, 62);
+	          color: white;
+	      }
+
+	      .details_btn:hover{
+	        color: rgb(32, 0, 62);
+	        background-color: white;
+	      }
+
+	      .details_btn:visited{
+	        color: white;
+	      }
+
+	      .details_btn:visited:hover{
+	        color: rgb(32, 0, 62);
+	      }
+
+
+        .programname{
+            display: inline;
+            color:white;
+            font-size: 1.2em;
+            position: relative;
+            right: 0px;
+            top: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        }
+          
+        .programdiv{
+            position: relative;
+            display:inline-grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 5px 5px;
+            overflow-y: auto;
+            width: 100%;
+            padding-bottom: 40px;
+            
+         
+        }
+        .tochange{
+                position: relative;
+                width: 100%;
+                height: inherit;
+            }
+
+        .programnamelist{
+            display: inline;
+            width: 150px;
+            height: 30px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            position: relative;
+            right: 0px;
+            top: 10px;
+            justify-self: end;
+            text-align: center;
+        }
+    </style>
+
+  
+  </head>
+
+   
+  <body>
+   	{{ template "headernav" .}}
+
+
+   <div class="container">
+    <main class="main-content" id="main-content">
+		 <h2 class="dashboard_name" style="font-size: 2em">
+			Students
+		</h2>
+		<hr>
+		<div class="tochange">
+		  <div  style="height: 15vh; border-radius: 0px; background-color:#6A0DAD; width: 100%; display: inline-block; justify-content: space-between; position: relative; margin-right: 20vw;">
+			<p class="programname" >Student List</p>
+			<select class="programnamelist" id="">
+			  <option value="">ALL</option>
+			</select>
+		  </div> 
+		  <div class="programdiv">
+			
+			<div class="table_div">
+			  <table class="table" style="width: 100%;">
+				<thead style="border: solid 2px dark-gray;">
+				  <tr>
+					<th scope="col">#</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Applied</th>
+					<th scope="col">Paid</th>
+					<th scope="col">Payment Method</th>
+					<th scope="col">Completed</th>
+					<th scope="col">Details</th>
+				  
+			
+				  </tr>
+				</thead>
+
+				
+				<tbody>
+				  {{ range .ProgramData}}
+					{{ if .Approved}}
+					<tr>
+					  <th scope="row"></th>
+					  <td>{{ .First_Name}}</td>
+					  <td>{{ .Last_Name}}</td>
+					  <td>{{ .Email}}</td>
+					  <td>{{ .Approved}}</td>
+					  <td>{{ .Paid}}</td>
+					  <td>{{ .Payment_Method}}</td>
+					  <td>{{ .Completed}}</td>
+					
+			  
+					  <td>
+
+						<a href="/studentedataadmin?student_uuid={{ .Student_UUID}}" class="details_btn">Details</a>
+					
+					  </td>
+					  </tr>
+				  
+					{{ else}}
+					<tr>
+					  <th scope="row"></th>
+					  <td>{{ .First_Name}}</td>
+					  <td>{{ .Last_Name}}</td>
+					  <td>{{ .Email}}</td>
+					  <td>{{ .Approved}}</td>
+					  <td>{{ .Paid}}</td>
+					  <td>{{ .Payment_Method}}</td>
+					  <td>{{ .Payment_Method}}</td>
+
+					
+			  
+					  <td>
+						<a href="/studentedataadmin?student_uuid={{ .Student_UUID}}" class="details_btn" style="background-color: red; text-decoration: none; 
+						color: white;
+						border: solid 1px white;">Details</a>
+					  </div>
+					  </td>
+					  </tr>
+					
+				  {{ end }}
+				  {{end}}
+				</tbody>
+			  </table>
+			</div>    
+			  
+		  </div>
+		</div>
+    </div>
+
+</body>
+</html>
+
+

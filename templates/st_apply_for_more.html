@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/studentportal.css?v=3.5">
+    <link rel="stylesheet" href="/assets/css/video.css?v=1.6">
+    <link rel="stylesheet" href="/assets/css/messages.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/studentdata.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/cource_assesment.css?v=1.0">
+
+    {{ template "sitelogimage" }}
+     <title>Student Dash Board</title>
+    <script src="/assets/htmx.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #200341;
+            --secondary-color: #f8f8f8;
+            --accent-color: #5e35b1;
+        }
+        
+        .program-card {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            padding: 10px;
+        }
+        
+        .program-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .program-name {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .courses-section {
+            padding: 20px;
+        }
+        
+        .courses-title {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        
+        .course-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .course-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+        }
+        
+        .course-item:last-child {
+            border-bottom: none;
+        }
+        
+        .apply-section {
+            padding: 0 20px 20px;
+            text-align: center;
+        }
+        
+        .apply-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .apply-button:hover {
+            background-color: var(--accent-color);
+        }
+    
+        .hiddenAssesments{
+            position: fixed;
+            top: 100px;
+            width: 50vw;
+            height: 50vh;
+            border: solid 1px darkgray;
+            border-radius: 5px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .closeBtn1{
+            width: 30px;
+            height: 30px;
+            color: white;
+            background-color: rgb(32, 0, 62);
+            border: solid 1px rgb(32, 0, 62);
+        }
+        .closeBtn1:hover{
+            color: rgb(32, 0, 62);
+        }
+
+      .truncate {
+        width: 200px; /* Adjust width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Container for the cards */
+        .cards-container {
+          display: flex;          /* Use flexbox for layout */
+          flex-wrap: wrap;       /* Allow cards to wrap to next line */
+          gap: 20px;             /* Space between cards */
+          justify-content: flex-start; /* Align cards to the left */
+          align-items: stretch;  /* Stretch cards to same height */
+        }
+
+        /* Individual card styling */
+        .card {
+          flex: 0 1 calc(33.333% - 20px); /* 3 cards per row accounting for gap */
+          min-width: 250px;      /* Minimum card width */
+          box-sizing: border-box; /* Include padding in width calculation */
+          
+          /* Optional card styling */
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          padding: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+          .card {
+            flex: 0 1 calc(50% - 20px); /* 2 cards per row on medium screens */
+          }
+        }
+
+        @media (max-width: 600px) {
+          .card {
+            flex: 0 1 100%; /* 1 card per row on small screens */
+          }
+        }
+    </style>
+</head>
+<body>
+    {{template "HeaderStudent" .}}
+    <main>
+    <h2>Programs Available To You</h2>
+    <div id="cards-container" class="main_div" style="padding: 20px;">
+        {{ $studentuuid := .StInfo.UUID}}
+
+        {{ range .Programs_Av }}
+        <div class="card">
+        <div class="program-header">
+            <h2 class="program-name">{{ .Name}}</h2>
+        </div>
+        
+        <div class="courses-section">
+            <h3 class="courses-title">Core Courses</h3>
+            <ul class="course-list">
+                {{ range .CourseNames }}
+                <li class="course-item">{{ .Name}}</li>
+                {{ end }}
+            </ul>
+        </div>
+        
+        <div class="apply-section" id="appliedprogram">
+            <a  hx-post = "/applytpproceed?student_uuid={{ $studentuuid }}&program={{.Code}}" 
+                hx-target= "#appliedprogram"
+                hx-swap="innerHTML"
+            style="
+            display: inline-block;
+            background-color: #200341;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#5e35b1'" 
+        onmouseout="this.style.backgroundColor='#200341'">Apply to Program</a>
+        </div>
+    </div>
+        {{ end }}
+    </div>
+    </main>
+
+    <script >
+   
+    const myDiv = document.getElementById('hidden');
+    const hideDivBtn = document.getElementById('closeBTN');
+
+    
+    hideDivBtn.addEventListener('click', () => {
+      myDiv.style.display = 'none'; // Set display to none
+    });
+  
+
+  
+    </script>
+    
+   
+</body>
+
+<footer>
+    {{ template "footer"}}
+</footer>
+
+</html>
+
+
+
+
+{{ define "progragramapplied" }}
+     <a tyle="
+            display: inline-block;
+            background-color: #200341;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#5e35b1'" 
+        onmouseout="this.style.backgroundColor='#200341'">Applied</a>
+
+{{ end }}
+
+
+
+{{  define "programapplicationfailed"}}
+
+    <a tyle="
+            display: inline-block;
+            background-color: #200341;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#5e35b1'" 
+        onmouseout="this.style.backgroundColor='#200341'">Application Failed Try Again Latter </a>
+
+{{ end }}
+
+
+

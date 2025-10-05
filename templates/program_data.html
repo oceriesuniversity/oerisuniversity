@@ -1,0 +1,111 @@
+
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Assesment List</th>
+                <th>Video List</th>
+                <th>Module</th>
+                <th>Recommended Book</th>
+                <th>Exam</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Pendding</td>
+                <td>Pendding</td>
+                <td>Pendding</td>
+                <td>Pendding</td>
+                <td>Pendding</td>
+                <td>
+                    <ul class="outer"></ul>
+                        <li class="dropdown">
+                            Select
+                            <ul class="inner">
+                                <li><button class="download">Update</button></li>
+                                <li><button class="delete">Delete</button></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+{{ define "list_tr"}}
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+        <ul class="outer"></ul>
+            <li class="dropdown">
+                Select
+                <ul class="inner">
+                    <li><button class="download">Update</button></li>
+                    <li><button class="delete">Delete</button></li>
+                </ul>
+            </li>
+        </ul>
+    </td>
+</tr>
+<tr>
+    <div>
+        <form action="" method="post">
+            <label for="assignment">Add links to assignment</label>
+            <input name="assignment" type="text" placeholder="Assignment link place commer ',' ">
+            <label for="exam">Add Exam Questions</label>
+
+            <label for="assignment">Add links to Video List</label>
+            <input name="assignment" type="text" placeholder="Assignment link place commer ',' ">
+
+            <label for="assignment">Add link to Module</label>
+            <input name="assignment" type="text" placeholder="Assignment link place commer ',' ">
+
+            <label for="assignment">Add link to Recommende Book</label>
+            <input name="assignment" type="text" placeholder="Module link ">
+           
+            <button type="submit">Save</button>
+        </form>
+        <button>Create Exam</button>
+    </div>
+</tr>
+{{ end }}
+
+{{ define "create_exam"}}
+
+<div class="exam_div">
+    <div> 
+        <button>Return</button>
+    </div>
+    <div class="questions_list">
+
+    </div>
+    <div class="write_questions">
+
+    </div>
+</div>
+
+{{ end}}
+
+{{ define "question"}}
+
+    <div class="question">
+        <div class="update_question">
+            <button>Update</button>
+            <button>Delete</button>
+        </div>
+        <div class="question_text">
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam ea quam quis similique animi, laudantium rem ut, aperiam distinctio expedita eius debitis architecto consectetur quae error quidem eum odio corrupti!
+            </p>
+        </div>
+    </div>
+{{ end }}
+

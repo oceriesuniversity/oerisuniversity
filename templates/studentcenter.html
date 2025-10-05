@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Center</title>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/aboutus.css">
+    {{ template "sitelogimage" }}
+    
+    <style>
+        body{
+        background-image: url('assets/Images/home_page_three.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment:fixed;
+        margin: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: lighter;
+}
+
+    @media(min-width: 600px;){
+        .fees{
+            font-size: 0.9em;
+        }
+    }
+    </style>
+</head>
+<body>
+    {{ template "Header"}}
+
+    <div class="aboutus" style="height: 90vh; overflow-y: auto;">
+      <h1>Student Center</h1>
+
+      <h3>Application Process</h3>
+
+      <h4>GENERAL APPLICATION INFORMATION</h4>
+        
+        <ul>
+            <li>You can apply online here <a href="/enroll">Apply Online</a> OR </li>
+            <li>Obtain your application by downloading one from this website or email….</li>
+            <li>Complete the application form and attach the relevant documents as stated on the form</li>
+            <li>Pay the tuition fee as provided below</li>
+
+        <ul>
+        
+        <p class="fees">OCERIES UNIVERSITY COLLEGE ACCOUNT DETAILS</p>
+        <p class="fees">(A/C Name : Oceries University)<br>
+        1.0042040000499 @ INDO Zambia Bank<br>
+        Ensure that the details of the applicant appear on the deposit slip.
+        Obtain an official Oceries University receipt after you deposit at the bank.</p>
+        
+      
+  </div>
+        
+
+</body>
+
+{{ template "footer" }}
+</html>

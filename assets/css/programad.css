@@ -1,0 +1,122 @@
+
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+.checkmark{
+    width: 100px;
+    height: 100px;
+    margin-left:auto;
+    margin-right: auto;
+    position: relative;
+    
+    
+}
+
+.checkmark img{
+    height: 100px;
+}
+
+.registrationapproval{
+    background-image: url("/assets/Images/home_page_three.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;  
+    justify-content: center;  
+    
+
+}
+
+
+
+
+
+
+.messageapproved{
+    z-index: 2;
+    position: absolute;
+    text-align: center;
+    height: 50vh;
+    width: 35vw;
+    border: 1px solid rgb(32, 0, 67);
+    border-radius: 3px;
+    padding: 10px ;
+    background-color: white;
+}
+
+
+
+.messagerejected{
+    z-index: 2;
+    position: absolute;
+    text-align: center;
+    height: 45vh;
+    width: 35vw;
+    border: 1px solid rgb(32, 0, 67);
+    border-radius: 3px;
+    padding: 10px ;
+    background-color: white;
+}
+
+.messagetext{
+    position: relative;
+    height: 70%;
+    /* background-color: aqua; */
+}
+
+
+.message h1{
+    padding-bottom: 30px;
+    font-size: 3.2em;
+}
+
+
+.messagetext h1{
+    padding: 10px;
+    color: rgb(32, 0, 67);
+}
+.messagetext p{
+    font-size: 1.1em;
+    padding: 10px;
+}
+
+.messagebtndiv{
+    position: relative;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;  
+    justify-content: center;  
+    
+    /* background-color: blue; */
+}
+
+.messagebtn{
+    background-color: rgb(32, 0, 67);
+    border-radius: 3px;
+    border: 1px solid rgb(32, 0, 67);
+    color: white;
+    width: 100px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.1em;
+}
+
+.messagebtn:hover{
+    background-color: white;
+    color: rgb(32, 0, 67);
+}

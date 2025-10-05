@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ template "sitelogimage" }}
+
+    <title>Confirmation</title>
+    <script src="/assets/htmx.js"></script>
+    <style>
+        body{
+            background-image: url('assets/Images/home_page_three.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+           font-weight: lighter;
+
+            margin: auto;
+    }
+
+    .mainbox{
+        width: 45%;
+        height: 60vh;
+        border: 1px solid rgb(37, 0, 62);
+        border-radius: 5px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20vh;
+        text-align: center;
+        background-color: white;
+        padding: 20px;
+    }
+
+    .mainbox h1{
+        text-align: center;
+    }
+
+    .btn1{        width: 150px;
+        height: 35px;
+        font-size: 1.2em;
+        background-color: rgb(37, 0, 62);
+        border: 1px solid rgb(37, 0, 62);
+        border-radius: 2px;
+        color: white;
+        text-decoration: none;
+        padding-top: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn1:hover{
+        background-color: white;
+        
+    }
+
+    .btn1:hover a{
+        color: rgb(37, 0, 62);
+    }
+
+    .btn1 a{
+        text-decoration: none;
+        color: white;
+    }
+
+
+
+    .btn1:active{
+        background-color: rgb(37, 0, 62);
+        color: white;
+    }
+
+    .checkmark{
+        width: 100px;
+        height: 100px;
+        margin-left:auto;
+        margin-right: auto;
+        position: relative;
+        
+        
+    }
+
+    .checkmark img{
+        height: 100px;
+    }
+
+    </style>
+
+</head>
+<body>
+    <div class="mainbox" style="padding: 30px;">
+        <h1 class="headertext">Submited</h1>
+        <div class="checkmark">
+            <img src="/assets/Images/check_purple.png" alt="check_purple">
+        </div>
+        <p>Congratulations your form has been submited succefully.Use the email addres you used to enroll as your password</span>. Log into your acount and change it on your dashboard You are adviced to return to our home page to learn more about the program you have applied for.</p>
+        <div class="btn1"><a href="/">Home</a></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/aboutus.css?v=1.1">
+    <style>
+        body{
+        background-image: url('assets/Images/home_page_three.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-attachment:fixed;
+        margin: auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: lighter;}
+        .program_names{ font-weight: bold; font-style: italic;}
+
+        .business-studies {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        .school-title {
+            color: #2c3e50;
+            padding-bottom: 10px;
+            margin-top: 0;
+            /* Removed the border-bottom property to eliminate the line */
+        }
+        
+        .program-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .program-list li {
+            padding: 12px 0;
+            /* Removed the border-bottom property to eliminate lines between items */
+            font-size: 20px;
+        }
+        
+        .program-number {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .bank-details {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-top: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    }
+
+    .bank-title {
+        color: #2c3e50;
+        margin-top: 0;
+        font-size: 1.4em;
+        border-bottom: 1px solid #ecf0f1;
+        padding-bottom: 10px;
+    }
+
+    .bank-info {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 12px;
+        margin-top: 15px;
+    }
+
+    .bank-label {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .bank-value {
+        color: #34495e;
+    }
+
+    .university-name {
+        font-weight: bold;
+        color: #2980b9;
+    }
+    </style>
+</head>
+<body class="body">
+
+    {{ template "Header"}}
+
+    <div class="aboutus">
+        <h1>Programs</h1>
+        <p>
+            OCERIES UNIVERSITY COLLEGE OF METAPHYSICAL SCIENCES
+            LUSAKA CAMPUS - ZAMBIA
+
+            Oceries University College of Metaphysical Sciences has three departments, namely Department of Media and Journalism Studies, Department of Business studies and Department of Metaphysical Sciences. Courses are offered by each department based on its mandate. 
+
+            The University offers Twelve [12] programmes at Certificate level, six [6] programs at Diploma level and Three [3] programs at Bachelors level. Other programmes are three [3] at Master’s level and three [3] at   PhD level.
+            For the award of any Certificate at any level, an aspiring student is required to pass all the courses and meet the minimum requirements set by Oceries University Senate in the hours spent studying the course and fees related to the course. 
+            Graduation will be conducted bi-annually, in the month of July and the month of December. The graduation will be preceded by Oceries University Board of Examiners to review all courses examined. The mode of delivery for the courses is the British English. To enroll, fill in the forms online and pay the relevant fees.
+            
+
+        </p>
+        <h1>CERTIFICATE COURSES</h1>
+
+        <p>At Certificate level, the student is expected to spent at least 90 days studying the relevant course materials provided by Oceries University.  The student is also expected to pay relevant fees of USD 5 for registration and tuition fee of USD 50. Fees can be paid using the local currency in the bank account provided by the Oceries University.</p>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF MEDIA AND JOURNALISM STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">1.</span>Certificate in Minutes Taking and Report Writinge</li>
+
+            <li><span class="program-number">2.</span>Certificate in Speech Writing and Public Speaking</li>
+
+            <li><span class="program-number">3.</span>Certificate in Public Relations and Crisis Management</li>
+
+            <li><span class="program-number">4.</span>Certificate in Media and Journalism Studies</li>
+
+            <li><span class="program-number">5.</span>Certificate in Strategic Corporate Communication</li>
+          
+        </ul>
+        </div>
+
+       <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF BUSINESS STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">6.</span> Certificate in Strategic Customer Care</li>
+            <li><span class="program-number">7.</span> Certificate in Project Monitoring and Evaluation</li>
+            <li><span class="program-number">8.</span> Certificate in Project Design and Proposal Writing</li>
+            <li><span class="program-number">9.</span> Certificate in Strategic Marketing and Consumer Behavior</li>
+            <li><span class="program-number">10.</span> Certificate in Procurement</li>
+            <li><span class="program-number">11.</span> Certificate in Human Resources</li>
+        </ul>
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF METAPHYSICAL SCIENCES STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">12.</span>Certificate in Metaphysical Sciences</li>
+        </ul>
+
+        </div>
+
+        <h1>DIPLOMA AWARDS</h1>
+
+        <p>The fees related to the Diploma courses are USD 50 per term. In a year there are three terms. The duration for the course is 2 years. Registration and administration is USD 10 or local currency. The following courses are on offer.</p>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF MEDIA AND JOURNALISM STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">1.</span>Diploma in Journalism</li>
+            <li><span class="program-number">2.</span>Diploma in Public Relations</li>
+            <li><span class="program-number">3.</span>Diploma in Strategic Corporate Communication</li>
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF BUSINESS MANAGEMENT STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">4.</span>Diploma in Strategic Customer Care</li>
+            <li><span class="program-number">5.</span>Diploma in Project Design and Management Administration</li>
+          
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF METAPHYSICAL SCIENCES STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">6.</span>Diploma in Metaphysical Sciences</li>
+          
+        </ul>
+
+        </div>
+
+
+        <h1>BACHERLORS DEGREE AWARDS</h1>
+
+        <p>The following courses are offered at degree level.</p>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF MEDIA AND JOURNALISM STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">1.</span>Bachelor’s Degree in Journalism and Public Relations</li>
+          
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF BUSINESS MANAGEMENT STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">2.</span>Bachelor’s Degree in Management Business Administration</li>
+          
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF METAPHYSICAL SCIENCES STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">3.</span>Bachelor’s Degree in Metaphysical Sciences</li>
+          
+        </ul>
+
+        </div>
+
+        <h1>MASTER’S DEGREE AWARDS</h1>
+
+        <p>At the Master’s Level,  Oceries University College of Metaphysical Sciences offers the following areas of study.</p>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF MEDIA AND JOURNALISM STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">1.</span>Master of Journalism and Public Relations</li>
+          
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF BUSINESS MANAGEMENT STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">2.</span>Master of Management Business Administration </li>
+          
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF METAPHYSICAL SCIENCES STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">3.</span>Master of Metaphysical Sciences</li>
+          
+        </ul>
+
+        </div>
+        
+
+        <h1>PhD AWARDS</h1>
+
+        <p>At Ph.D Level,  Oceries University College of Metaphysical Sciences offers the following areas of study.</p>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF MEDIA AND JOURNALISM STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">1.</span>PhD in Journalism and Public Relations</li>
+          
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF BUSINESS MANAGEMENT STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">2.</span>PhD in  Business Studies</li>
+          
+        </ul>
+
+        </div>
+
+        <div class="business-studies">
+        <h2 class="school-title">SCHOOL OF METAPHYSICAL SCIENCES STUDIES</h2>
+        <ul class="program-list">
+            <li><span class="program-number">3.</span>PhD in  Metaphysical Sciences</li>
+          
+        </ul>
+
+        </div>
+        
+
+
+     <div class="bank-details">
+    <h3 class="bank-title">BANK ACCOUNT DETAILS FOR THE UNIVERSITY</h3>
+    <div class="bank-info">
+        <div class="bank-label">NAME:</div>
+        <div class="bank-value university-name">Oceries University of Metaphysical Sciences</div>
+        
+        <div class="bank-label">BANK:</div>
+        <div class="bank-value">INDOZAMBIA Bank</div>
+        
+        <div class="bank-label">BRANCH:</div>
+        <div class="bank-value">Kamwala</div>
+        
+        <div class="bank-label">ACCOUNT NO.:</div>
+        <div class="bank-value">0042040000499</div>
+        
+        <div class="bank-label">BRANCH CODE:</div>
+        <div class="bank-value">090004</div>
+    </div>
+    </div>
+    </div>
+
+    
+
+  
+    
+</body>
+{{ template "footer"}}
+</html>

@@ -1,0 +1,251 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: lighter;
+
+}
+
+.assesment_box{
+    height: 50vh;
+    position: relative;
+    width: 70vw;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.header_assesment{
+    width: 100%;
+    padding: 1px;
+    display: flex;
+    justify-content: end;
+   
+}
+
+
+.outer, .inner{
+    list-style: none;
+    width: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+.inner {
+    background-color: rgba(32, 0, 62, .2);
+    width: 100px;
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+
+.dropdown{
+    background-color: rgb(32, 0, 62);
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.outer{
+    background-color: aqua;
+    width: 100%;
+    cursor: pointer;
+}
+
+.selector{
+    cursor: pointer;
+    display: inline-block;
+    width: 100px;
+    height: 25px;
+    background-color: rgb(32, 0, 62);
+    border: solid 1px rgb(32, 0, 62);
+    color: white;
+    border-radius: 2px;
+    text-align: center;
+}
+.dropdown:hover{
+    background-color: white;
+    color: rgb(32, 0, 62);
+    border: solid 1px rgb(32, 0, 62);
+    border-radius: 2px;
+}
+
+.dropdown:hover .inner{
+    display: block;
+
+}
+
+.grade_div{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    
+}
+.assingment_form_in{
+    width: 100%;
+    display: flex;
+    height: 100%;
+}
+.assingment_name{
+    display: inline;
+    width: 20%;
+}
+.assesment_form{
+    display: flex;
+    width: 100%;
+    height: 100%;
+   
+}
+
+
+
+.assesment_input{
+    display: inline;
+    width: 170px;
+    height: 25px;
+    border: solid 1px rgb(32, 0, 62);
+    border-radius: 3px;
+}
+
+
+.download, .grade{
+    display: inline-block;
+    width: 80px;
+    height: 25px;
+    border: solid 1px rgb(32, 0, 62);
+    background-color: rgb(32, 0, 62);
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.download:hover, .grade:hover{
+    border: solid 1px rgb(32, 0, 62);
+    color: rgb(32, 0, 62);
+    background-color: white;
+}
+.close_assesment{
+    width: 40px;
+    height: 20px;
+    border: solid 1px rgb(32, 0, 62);
+    background-color: rgb(32, 0, 62);
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+
+}
+
+.close_assesment:hover{
+    border: solid 1px rgb(32, 0, 62);
+    color: rgb(32, 0, 62);
+    background-color: white;
+}
+
+.assesment_results{
+    width: 100%;
+    height: 60%;
+    overflow-y: scroll;
+    margin-bottom: 4px;
+   
+}
+
+.assesment_results_admin{
+    width: 100%;
+    height: 80%;
+    overflow-y: auto;
+    margin-bottom: 4px;
+}
+
+
+.delete{
+    display: block;
+    width: 80px;
+    height: 25px;
+    border: solid 1px rgb(128, 2, 2);
+    background-color: rgb(128, 2, 2);
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.delete:hover{
+    border: solid 1px rgb(128, 2, 2);
+    color: rgb(128, 2, 2);
+    background-color: white;
+}
+
+.assesment_hand_in{
+    width: 100%;
+    height: 30%;
+
+}
+
+.submit_assignment{
+    height: 30px;
+    border: solid 1px rgb(32, 0, 62);
+    border-radius: 3px;
+    background-color: rgb(32, 0, 62);
+    color: white;
+    cursor: pointer;
+}
+
+.submit_assignment:hover{
+    background-color: white;
+    color: rgb(32, 0, 62);
+}
+
+.upload_file{
+    width: 70%;
+    height: 30px;
+    border: solid 1px rgb(32, 0, 62);
+    border-radius: 3px;
+    padding: 2px;
+}
+
+table th{
+    width: 200px;
+
+}
+
+th, tr{
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+}
+
+tr td{
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+}
+
+table tr:nth-child(even) a{
+    color: white;
+    text-decoration: none;
+}
+
+table tr:nth-child(even){
+    background-color: rgba(32, 0, 67,.7);
+    color: white;
+}
+
+table tr:nth-child(odd) a{
+    color: black;
+}
+
+table tr:nth-child(even) a:hover{
+    text-decoration: underline;
+}
+
+table tr:nth-child(odd) a:hover{
+    text-decoration: underline;
+}
+
+
+/* Change the border color */

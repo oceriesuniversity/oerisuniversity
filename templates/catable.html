@@ -1,0 +1,69 @@
+
+
+{{ define "catablestudent"}}
+
+<div class="catablestudent">
+    <div class="tablediv">
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Assigment</th>
+            <th>Result</th>
+            <th>Comment</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="uploaddiv">
+    <form action="/aploadassignment">
+        <input class="upload_input" name="assigment_file" type="File">
+        <button type="submit">Upload Assignment</button>
+    </form>
+</div>
+</div>
+
+{{end}}
+
+
+{{ define "catableadmin"}}
+
+    <div class="catablestudent">
+        <div class="tablediv">
+        <table>
+            <thead>
+                <th>#</th>
+                <th>Assigment</th>
+                <th>Result</th>
+                <th>Comment</th>
+                <th>Download Assignment</th>
+                <th>Recored</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="ca_btn">Download</button>
+                    </td>
+                    <td>
+                        <button class="ca_btn">
+                            Recored
+                        </button>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+{{end}}

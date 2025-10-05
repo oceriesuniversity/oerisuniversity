@@ -1,0 +1,498 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Administrative Dashboard</title>
+        <script src="/assets/htmx.js"></script>
+        {{ template "sitelogimage" }}
+        {{ template "adminhearstyle" }}
+        {{ template "head_temp"}}
+
+        <style>
+            .cource_approve{
+            border: solid 1px rgb(32, 0, 67);
+            color: rgb(32, 0, 67);
+            background-color: white;
+            border-radius: 3px;
+            cursor: pointer;
+            height: 35;
+            width: 100px;
+            margin-right: 5px;
+            }
+
+            .cource_approve:hover{
+            background-color: rgb(32, 0, 62);
+            color: white;
+            }
+
+            .centered_div {
+            overflow-y: auto;
+            position: fixed;
+            top: 30vh;
+            width: 50vw;
+            height: 50vh;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            left: 50vh;
+            z-index: 1000;
+            
+            }
+
+            .close-button {
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            background-color: rgb(32, 0, 62);
+            border: solid 1px rgb(32, 0, 62);
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            color: #888;
+            margin-bottom: 5px;
+            }
+
+            .close-button:hover {
+                color: rgb(32, 0, 62);
+                background-color: white;
+            }
+
+            .approve_complition{
+                width: 150px;
+                height: 30px;
+                border: solid 1px rgb(32, 0, 62);
+                border-radius: 3px;
+                background-color: white;
+                color: rgb(32, 0, 62);
+
+            }
+
+            .approve_complition:hover{
+                background-color: rgb(32, 0, 62);
+                color: white;
+            }
+            .deleteCt2{
+                width: 100px;
+                height: 30px;
+                border: solid 1px darkred;
+
+                background-color: darkred;
+                border-radius: 3px;
+                color: white;
+            }
+
+            .deleteCt2:hover{
+                color: darkred;
+                background-color: white;
+            }
+
+            .approved{
+                background-color: rgb(32, 0, 62);
+                border: solid 1px rgb(32, 0, 62);
+                border-radius: 3px;
+                height: 35px;
+                color: white;
+                margin-right: 5px;
+            }
+        </style>
+    </head>
+
+   
+  <body>
+    {{  template "headernav" .}}
+
+
+    <div class="main" style="padding: 15px; height: 100vh; overflow-y: scroll;">
+        
+        
+                  
+        <div class="tochange">
+            <div class="student_name_details">
+                <p>{{ .StInfo.First_Name}} {{ .StInfo.Last_Name}}</p>
+            </div>
+            <hr>
+            <div class="student_personal_information">
+                
+                <p>Phone Number: <span class="student_info">{{ .StInfo.Phone}}</span></p>
+                <p>Email: <span class="student_info">{{ .StInfo.Email}}</span></p>
+                <p>Date of Birtth: <span class="student_info">{{ .StInfo.Date_Of_Birth}}</p>
+                <p>Gender:<span class="student_info"> {{ .StInfo.Gender}}</span></p>
+                <p>Marital Status: <span class="student_info"> {{ .StInfo.Marital_Status}}</span></p>
+                <p>Education background: <span class="student_info"> {{ .StInfo.Education_Background}}</span></p>
+                <p>Program: <span class="student_info">{{ .StInfo.Program}}</span></p>
+                <p>High School Confirmation: <span class="student_info"></span> {{ .StInfo.High_School}}</span></p>
+                <p>Grammer Confirmation: <span class="student_info">{{ .StInfo.Grammer_Confirmation}}</span></p>
+                <p>Waiver:<span class="student_info">{{ .StInfo.Waiver}}</span></p>
+                <p>Children: <span class="student_info">{{ .StInfo.Children}}</span></p>
+                <p>School Attended:<span class="student_info">{{ .StInfo.School_Attended}}</span></p>
+                <p>Program Studied:<span class="student_info">{{ .StInfo.Major_In}}</span></p>
+                <p>Degre Obtained: <span class="student_info">{{ .StInfo.Degree_Obtained}}</span></p>
+                <p>Current Occupation:<span class="student_info"> {{ .StInfo.Current_Occupation}}</span></p>
+                <p>Field of interested in: <span class="student_info">{{ .StInfo.Field_Interested}}</span></p>
+                <p>Prio Techniques Studied:<span class="student_info">{{ .StInfo.Prio_Techniques}}</span> </p>
+                <p>Previous Experience: <span class="student_info">{{ .StInfo.Previouse_Experience}}</span></p>
+                <p>Purpose of enrollment: <span class="student_info">{{ .StInfo.Purpose_Of_Enrollment}}</span></p>
+                <p>Use of Knowledge odtained: <span class="student_info">{{ .StInfo.Use_Of_Knowledge}}</span></p>
+                <p>Reason for chosing UCMS:<span class="student_info">{{ .StInfo.Reason_For_Choice}}</span> </p>
+                <p>How did they find out about UCMS:<span class="student_info">{{ .StInfo.Method_Of_Encounter}}</span> </p>
+            
+            </div>
+            <div class="update_div" style="display: flex; justify-content: start;">
+                <div class="update_btn" style="display: inline-block;">
+                    <p>Update Student Profile</p>
+                </div>
+                <div class="delete_btn" style="display: inline-block;">
+                    <p>Delete Student Profile</p>
+                </div>
+            </div>
+            <hr>
+            
+            <div class="student_programs">
+            <h5>Programs Applied For</h5>
+            <hr>
+            
+            
+                <div class="program_details">
+                    
+                        
+                        {{ range .AllCourceDataOut }} 
+                            {{ template "programdata" .}}
+                        {{ end }}
+
+                    
+                        <div style="height: 50px; width: 100px;"></div>
+
+                </div>
+                
+                
+            </div>
+            
+            
+        </div>  
+            
+        
+        
+    
+    </div>
+
+    <div style="display: none;" id="centered_div">
+                    
+    </div>
+    
+</body>
+</html> 
+
+
+{{ define "admin_cource_assesment"}}
+
+
+
+    <div class="centered_div" id="centered_div"> 
+
+        <button class="close-button" onclick="closeDiv()">X</button>
+        <div style="width: 100%;">
+            
+            <table class="assesment_table" style="margin: auto; height: 10vh; margin-bottom: 40px;">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Grade</th>
+                        <th>Comment</th>
+                        <th>Delete</th>
+                        
+                    </tr>
+                </thead>
+                    
+                
+                <tbody id="assesmentlist">
+                    
+
+                    {{ range .Assesment}}
+                        {{ template "grade_tr" .}}
+
+                    {{ end }}
+                    
+                </tbody>
+                
+            </table>
+
+            <hr>
+            <form hx-post="/grade_assesment?cource_name={{.Cource_Name}}&student_uuid={{.Student_UUID}}" 
+                hx-target="#assesmentlist"
+                hx-swap="beforeend">
+                <div class="form_main" style="display: flex; width: 100%; height: 30%;">
+                    <div class="line" style="display: inline-block; margin-right: 10px;">
+                        <label for="title">Title</label><br>
+                        <input type="text" name="title">
+                    </div>
+                    <div class="line" style="display: inline-block; margin-right: 10px;">
+                        <label for="title">Grade</label><br>
+                        <input type="text" name="grade">
+                    </div>
+                    <div class="line" style="display: inline-block; margin-right: 10px;">
+                        <label for="title">Comment</label><br>
+                        <input type="text" name="comment">
+                    </div>
+                </div>
+
+                <div class="assesment_grade" style="width: 100%; display: flex; justify-content: end; height: 40px;">
+                    <button class="grade" style="width: 100px; height: 30px;" type="submit">Enter Grade</button>
+                </div>
+            </form>
+        </div>
+        <div class="listStudentHaded" style="display: flex; justify-content: start;">
+            
+            {{ range .FileDir}}
+                <div class="thefilediv">
+                    <div class="actionfile">
+                        <a href="/downloadfile?cource_name={{.Cource_Name}}&student_uuid={{.Student_UUID}}&file_name={{.File_Name}}">{{ .File_Name}}</a>
+                        
+                        <button class="deleteCt2" >Delete</button>
+                    </div>    
+                </div>
+
+            {{ end }}
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function closeDiv() {
+                const div = document.getElementById('centered_div');
+                
+                const newDiv = `
+                
+                <div class="centered_div" id="centered_div" style="display: none;">
+
+                </div>`;
+
+               
+                div.outerHTML = newDiv;
+                
+            }
+       
+    </script>
+
+
+
+{{ end }}
+
+
+{{define "programdata"}}
+    <h5 class="program_name">{{ .ProgramStruct.Program_Name}}</h5>
+                
+    <div class="program_table">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Course Name</th>
+            <th>Continouse Assesment</th>
+            <th>Exam</th>
+            <th>Supplimentary</th>
+            <th>Approval</th>
+
+            
+        </tr>
+        </thead>
+        <tbody>
+            
+            {{ range .Cource_Struct}}
+                <tr>
+                    <td></td>
+                    <td>{{ .Cource_Name}}</td>
+                    <td><a 
+                        hx-post="/gradeca?student_uuid={{.Student_UUID}}&cource_name={{.Cource_Name}}" 
+                        hx-target = "#centered_div" 
+                        hx-swap = "outerHTML" style="cursor: pointer;">Grade CA</a></td>
+
+                    <td> <a href="/grade_exam?student_uuid={{ .Student_UUID}}&cource_name={{ .Cource_Name}}">Grade Exam</a></td>
+                    <td id="btc{{.Cource_Name}}"><button class="approve_complition" 
+                        hx-post="/courcecompleted?cource_name = {{.Cource_Name}}&student={{.Student_UUID}}" 
+                        hx-target = "#btc{{.Cource_Name}}"
+                        hx-swap = "innerHTML" style="height: fit-content;" >Approve Supplimentary</button></td>
+                    <td id="courceapprovaladmin">
+                        {{ if .Approved }}
+                            {{ template "cource_approved_admin" .}}
+                        {{ else }}
+                            {{ if .Applied }}
+                                {{ template "cource_approve_admin" .}}
+                            {{ else }}
+                                {{ template "pendding" }}
+                            {{ end }}
+                        {{end }}
+                    </td>
+                </td>
+            {{ end }}
+                
+            
+        
+        </tbody>
+    </table>
+    </div>
+
+    
+    <div class="updatecourcesdatediv">
+        
+
+        
+
+        <div id="approve_{{.ProgramStruct.UUID}}" class="update_div">
+
+            {{ if  .ProgramStruct.Approved }}
+                {{ template "approved" }}
+
+            {{else}}
+                {{template "approveprogram" .}}
+            {{end}}
+
+               
+        </div>
+        <div id="completed_{{.ProgramStruct.UUID}}" class="update_div">
+
+        
+
+            {{ if .ProgramStruct.Completed }}
+                {{ template "completed" }}
+
+            {{ else }}
+                {{template "approvecompletion" .}}
+            {{end}}
+
+            
+        </div>
+
+       
+    </div>
+    
+{{end}}
+
+
+{{ define "cource_complete_tag"}}
+    <div style="color: rgb(32, 02, 62); 
+        width: 150px; 
+        border: solid 1px rgb(32, 02, 62);
+        border-radius: 3px; 
+        background-color: white;" >
+        Course Completed
+    </div>
+{{ end }}
+
+{{ define "cource_notcomplete_tag"}}
+    <div style="color: rgb(32, 02, 62); 
+        width: 150px; 
+        border: solid 1px rgb(32, 02, 62);
+        border-radius: 3px; 
+        background-color: white;" >
+        Not Complete
+    </div>
+
+{{end}}
+
+{{ define "pendding" }}
+    <p class="cource_text_approval">Pendding</p>
+{{end}}
+
+{{ define "cource_approved_admin"}}
+    <div class="approved">
+        <p class="cource_text_approval" style="color: white;">Approved</p>
+    </div>
+{{end}}
+
+{{ define "approval_error"}}
+    <p class="cource_text_approval">Error</p>
+{{end}}
+
+{{define "cource_approve_admin"}}
+
+    <button
+    hx-post="/courceupdateadmin?user_uuid={{ .Student_UUID }}&cource_name={{ .Course_Code}}"
+    hx-swap="outerHTML"
+    class="cource_approve">
+    Approve 
+    </button>
+{{end}}
+
+
+{{ define "approveprogram"}}
+        <div class="approve_btn">
+            <p hx-get="/approve?user_uuid={{ .ProgramStruct.Student_UUID}}&program={{ .ProgramStruct.Program_Name}}"
+            hx-target="#approve_{{.ProgramStruct.UUID}}"
+            hx-swap="innerHTML">Approve Program</p>
+
+        </div>
+
+
+{{ end }} 
+
+{{ define "approved"}}
+    
+        <div class="update_btn">
+            <p>Approved</p>
+        </div>
+    
+
+{{end}}
+
+
+{{ define "approvecompletion"}}
+        <div class="complete_btn" style="cursor: pointer;">
+            <p hx-get="/completed?user_uuid={{ .ProgramStruct.Student_UUID}}&program={{ .ProgramStruct.Program_Name}}"
+            hx-target="#completed_{{.ProgramStruct.UUID}}"
+            hx-swap="innerHTML">Approve Completion</p>
+
+        </div>
+
+
+{{ end }} 
+
+{{ define "completed"}}
+    
+        <div class="complete_btn">
+            <p>Completed</p>
+        </div>
+
+
+{{end}}
+
+{{ define "approvecourceone"}}
+    <div class="courceapprove">
+        <p>Approved</p>
+    </div>
+
+{{end}}
+
+{{ define "courceapprovedone"}} 
+    <div class="courceapprovedone">
+        <p>Approved</p>
+    </div>
+{{end}}
+
+
+
+{{ define "grade_assesment"}}
+    
+       
+
+{{ end }}
+
+
+{{ define "student_cource_assesment"}}
+
+    <tr>
+       <td>{{.Assesment_Title}}</td>
+       <td>{{.Assesment_Grade}}</td> 
+       <td>{{.Assesment_Comment}}</td> 
+        
+
+    </tr>
+
+{{ end }}

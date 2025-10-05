@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Questions</title>
+    {{ template "sitelogimage" }}
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f3ff;
+            color: #333;
+        }
+         .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .left-panel {
+            flex: 3;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        
+        .right-panel {
+            flex: 1;
+            background-color: #f3e5ff;
+            padding: 20px;
+            border-left: 1px solid #d9b3ff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h1 {
+            color: #4b2e83;
+            border-bottom: 2px solid #8a2be2;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #4b2e83;
+            font-size: 1.2em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .course-details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #faf5ff;
+            border: 1px solid #e6ccff;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .course-details-table th {
+            background-color: #8a2be2;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .course-details-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e6ccff;
+        }
+        
+        .course-details-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .course-details-table tr:hover {
+            background-color: #f3e5ff;
+        }
+        
+        .question-list {
+            margin-top: 20px;
+        }
+        
+        .question-item {
+            background-color: #faf5ff;
+            border: 1px solid #e6ccff;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .question-item:hover {
+            box-shadow: 0 2px 5px rgba(139, 0, 139, 0.1);
+            transform: translateY(-2px);
+            border-color: #b366ff;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4b0082;
+            padding-right: 80px;
+        }
+        
+        .question-type {
+            color: #9370db;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .question-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-edit, .btn-delete, .btn-save, .btn-cancel {
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .btn-edit, .btn-save {
+            background-color: #ba55d3;
+            color: white;
+        }
+        
+        .btn-edit:hover, .btn-save:hover {
+            background-color: #9932cc;
+        }
+        
+        .btn-delete, .btn-cancel {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        .btn-delete:hover, .btn-cancel:hover {
+            background-color: #ff5252;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4b2e83;
+        }
+        
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d9b3ff;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #fdf9ff;
+        }
+        
+        button[type="submit"] {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #9932cc;
+        }
+        
+        .school-header {
+            background-color: #4b0082;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        
+        .school-name {
+            margin: 0;
+            font-size: 24px;
+            color: #e6e6fa;
+        }
+        
+        select:focus, input:focus {
+            outline: 2px solid #ba55d3;
+            border-color: #ba55d3;
+        }
+        
+        .edit-form {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0e5ff;
+            border-radius: 5px;
+        }
+        
+        .course-form {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #d9b3ff;
+        }
+        
+        .time-marks-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .time-marks-container .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="school-header">
+        <h2 class="school-name">{{ .CourceNameFm}}</h2>
+    </div>
+    
+    <div class="container">
+        <div class="left-panel">
+            
+            <table class="course-details-table">
+
+                <thead>
+                    <tr>
+                        <th>Program Name</th>
+                        <th>Course Name</th>
+                        <th>Course Code</th>
+                        <th>Time (mins)</th>
+                        <th>Total Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ template "examdetails" .}}
+                </tbody>
+            </table>
+
+            <h3>Questions</h3>
+            <hr>
+            <div class="question-list" id="questionList">
+                {{ if .Present }}
+                    {{ template "examquestion" .}}
+                {{ end }}
+                
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <h1>Create New Question</h1>
+            <form id="questionForm" hx-post="/addexam?program_name={{ .Cource_Data.Program_Name}}&cource_name={{ .Cource_Data.Cource_Name}}&uuid={{.Cource_Data.UUID}}&section=A"
+
+            hx-target="#questionList"
+            hx-swap="beforeend"
+            >
+                <div class="form-group">
+                    <label for="questionText">Question:</label>
+                    <textarea id="questionText" name="questionText" placeholder="Enter your question here" required></textarea>
+                   
+                </div>
+                
+                <div class="form-group">
+                    <label for="questionType">Question Type:</label>
+                    <select id="questionType" name="questionType" required>
+                        <option value="">Select question type</option>
+                        <option value=A>Multiple Choice</option>
+                        <option value="B">Short Answer</option>
+                       <!--  <option value="true_false">True/False</option>
+                        <option value="essay">Essay</option>
+                        <option value="matching">Matching</option> -->
+                    </select>
+                </div>
+                
+                <button type="submit">Create Question</button>
+            </form>
+            
+            <div class="course-form">
+                <h2>Course Details</h2>
+                <form id="courseForm">
+                    <div class="form-group">
+                        <label for="programName">Program Name:</label>
+                        <input type="text" id="programName" name="programName" placeholder="e.g., Computer Science" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="courseName">Course Name:</label>
+                        <input type="text" id="courseName" name="courseName" placeholder="e.g., Introduction to Programming" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="courseCode">Course Code:</label>
+                        <input type="text" id="courseCode" name="courseCode" placeholder="e.g., CS101" required>
+                    </div>
+                    
+                    <div class="time-marks-container">
+                        <div class="form-group">
+                            <label for="examTime">Exam Time (minutes):</label>
+                            <input type="number" id="examTime" name="examTime" placeholder="60" min="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="totalMarks">Total Marks:</label>
+                            <input type="number" id="totalMarks" name="totalMarks" placeholder="100" min="1" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit">Save Course Details</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
+
+
+{{ define "examquestion"}}
+
+    <div class="question-item" data-id="id{{.UUID}}">
+    <div class="question-text">{{.Question}}</div>
+    <div class="question-actions">
+        <button class="btn-edit" hx-get="/updatequestion?qustion_uuid={{.UUID}}&section=A" hx-target="#sectionAID" hx-swap="innerHTML" >Edit</button>
+        <button class="btn-delete" hx-get="/deletequestion?qustion_uuid={{.UUID}}" hx-target="#id{{.UUID}}" hx-swap="outerHTML">Delete</button>
+    </div>
+   
+</div>
+
+{{ end }}
+
+{{ define "examdetails"}}
+<tr>
+<td>{{ .ExamDetails.Program_Name}}</td>
+<td>{{ .ExamDetails.Cource_Name}}</td>
+<td>{{ .ExamDetails.Cource_Code }}</td>
+<td>{{ .ExamDetails.Exam_Duration}}m</td>
+<td>{{ .ExamDetails.Total_Marks}}</td>
+</tr>
+{{ end }}

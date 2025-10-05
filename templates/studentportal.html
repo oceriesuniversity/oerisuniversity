@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/studentportal.css?v=3.5">
+    <link rel="stylesheet" href="/assets/css/video.css?v=1.6">
+    <link rel="stylesheet" href="/assets/css/messages.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/studentdata.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/cource_assesment.css?v=1.0">
+
+    {{ template "sitelogimage" }}
+    
+
+   
+
+    <title>Student Dash Board</title>
+    <script src="/assets/htmx.js"></script>
+    <style>
+        .hiddenAssesments{
+            position: fixed;
+            top: 100px;
+            width: 50vw;
+            height: 50vh;
+            border: solid 1px darkgray;
+            border-radius: 5px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .closeBtn1{
+            width: 30px;
+            height: 30px;
+            color: white;
+            background-color: rgb(32, 0, 62);
+            border: solid 1px rgb(32, 0, 62);
+        }
+        .closeBtn1:hover{
+            color: rgb(32, 0, 62);
+        }
+
+      .truncate {
+        width: 200px; /* Adjust width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
+</head>
+<body>
+    {{template "HeaderStudent" .}}
+    
+    <main id="mainpage" class="main_div">
+        {{ if .Available}}
+            {{ template "programs" .}}
+        {{else}}
+            {{ template "oops" .}}
+        {{ end}}
+        
+
+       
+
+    </main>
+
+    <script >
+   
+    const myDiv = document.getElementById('hidden');
+    const hideDivBtn = document.getElementById('closeBTN');
+
+    
+    hideDivBtn.addEventListener('click', () => {
+      myDiv.style.display = 'none'; // Set display to none
+    });
+  
+
+  
+    </script>
+    
+   
+</body>
+
+<footer>
+    {{ template "footer"}}
+</footer>
+</div>
+</html>
+
+
+{{ define "empty_div"}}
+    <div style="display: none;">
+
+    </div>
+
+{{ end }}
+
+{{ define "working" }}
+    {{ .AllStudentCources}}
+{{ end }}
+
+{{ define "programs"}}
+ 
+    <div class="programs">
+
+
+        {{ range .AllCourceDataOut}}
+        
+            {{ template "tablestructure" .}}
+
+        {{end}}
+
+
+    </div>
+    <div class="proceed_div" style="margin-top: 40px;">
+        
+        <a class="proceed_btn" href="/proceed?student_uuid={{.StInfo.UUID}}">Apply For Other</a>
+    </div>
+{{end}}
+
+{{ define "oops"}}
+    <div class="confirmregistration" style="padding-bottom: 15px;">
+        <h1 class="oops_header">Sorry</h1>
+        <h2 >
+            Sorry none of the courses you have applied for have been approved please contact the instituon for futher help
+        </h2>
+        <div class="proceed_div btnbottom">
+
+            <a class="proceed_btn procced_bottom" href="/messages/{{.StInfo.UUID}}">
+                Contact Institution
+            </a>
+            
+        </div>
+    </div>
+    
+{{end}}
+
+
+
+{{define "HeaderStudent"}}
+
+<header class="header_nav">
+    <div class="user_infor">
+
+        <div class="image_div">
+            <img  class="user_image" src="/assets/Images/user_logo.png" alt="">
+        </div>
+        <div  class="student_name">
+            <p>
+                <a href="/studentprofileportal/{{.StInfo.UUID}}">{{.StInfo.First_Name}} {{.StInfo.Last_Name}}</a>
+            </p>
+
+        </div>
+    </div>
+
+    <div class="accountfunctions">
+        <p class="student_nav"><a  href="/messages/{{.StInfo.UUID}}">Messages</a></p>
+
+
+        <p class="student_nav">
+            <a href="/studentsettings?uuid={{.StInfo.UUID}}">Profile</a></p>
+
+        <p class="student_nav"><a href="/login">Log out</a></p>
+    </div>
+    
+</header>
+
+
+{{end}}
+
+
+
+{{ define "videopage"}}
+
+    <div class="videoplayer">
+
+        <div class="videodiv">
+            <video controls>
+                <source src="/assets/videos/mindfulness.mp4" type="video/mp4">
+
+            </video> 
+        </div>
+        <div class="videolist">
+
+            <h3>Course Name</h3>
+            <div class="coursevideos">
+
+                <div class="coursevideo">
+                    <video src="/assets/videos/mindfulness.mp4" type="video/mp4"></video>
+                </div>
+
+                <div class="videoname">
+                    <p>Cource video discription</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{{end}}
+
+
+
+
+
+{{ define "closeupdate"}}
+    <div class="studentupdate" id="studentupdate">
+
+    </div>
+{{ end }}
+
+{{ define "updatestudentinfo"}}
+   
+    <form action="">
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" placeholder="{{ .First_Name}}">
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" placeholder="{{ .Last_Name}}">
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="{{ .Email}}">
+        <label for="phone">Phone</label>
+        <input type="text" name="phone" placeholder="{{ .Phone}}">
+        <button class="updateuser">Update</button>
+    </form>
+
+
+
+{{ end }}
+
+
+
+
+
+{{ define "tablestructure"}}
+
+
+        <div style="color: rgb(31, 0, 62);">
+            <h2 style="color: rgb(31, 0, 62); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: lighter; text-align: center;">{{ .ProgramStruct.Program_Name}}</h2>
+        </div>
+        <hr>
+        <div class="program_table">
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Course Name</th>
+                <th>Download Module</th>
+                <th>Video</th>
+                <th>Cources Assesment</th>
+                <th>Exam</th>
+                <th>Approval</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{range .Cource_Struct }}
+
+                {{ if .Approved }}
+                    <tr>
+                        <td></td>
+                        <td>{{ .Cource_Name}}</td>
+                        <td><a href="/getstudymaterial?cource_name={{ .Cource_Name}}&material_type=module">Module</a></td>
+                        
+                        <td> <a class = "watch_video_link" href="/watchvideo?cource_name={{ .Cource_Name}}">Watch</a></td>
+                        
+                        <td ><a  href="/handinassesment?cource_name={{.Cource_Name}}&student_uuid={{ .Student_UUID}}"
+                            style="cursor: pointer;">Submit</a></td>
+
+                        <td><a href="/takeexam?cource_name={{ .Cource_Name}}&uuid={{ .Student_UUID}}">Write</a></td>
+                        <td id="approval">
+                        {{ template "cource_approved"}}
+                        </td>
+                        
+                        </tr>
+
+                    </tr>
+                    {{else}}
+                        <tr>
+                        <td></td>
+                        <td>{{ .Cource_Name  }}</td>
+                        <td>Modul</td>
+                        <td> <a>Watch</a></td>
+                        <td><a>Write</a></td>
+                        <td>Pedding</td>
+                        
+                        <td id="approval">
+                        {{ if .Approved }}
+                            {{ template "cource_approved" .}}
+                        {{else }}
+                            {{ if .Applied }}
+                                {{ template "cource_applied_btn" .}}
+                            {{ else }}
+                                {{template "cource_apply_btn" .}}
+                            {{ end }}
+
+                        {{ end }}
+
+                        </td>
+                        
+                        </tr>
+                    {{ end }}
+                {{end}}
+
+                
+            </tbody>
+        </table>
+        </div>
+{{end}}
+    
+
+{{define "cource_apply_btn"}}
+    <button
+
+    hx-post = "/approvecource?uuid={{ .UUID}}&cource_name={{ .Course_Code}}"
+    hx-swap = "outerHTML"
+    class="cource_apply_btn" style="width: 80px; height: 25px;">Apply</button>
+{{ end }}
+
+{{ define "cource_applied_btn"}}
+    <button  class="cource_approved" style="width: 80px; height: 25px;">Applied</button>
+{{ end }}
+
+{{ define "cource_approved"}}
+   <button  class="cource_approved" style="width: 80px; height: 25px;">Approved</button>
+{{end}}
+
+

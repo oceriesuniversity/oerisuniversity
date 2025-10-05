@@ -1,0 +1,97 @@
+body{
+    background-image: url("home_page_three.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+
+
+.headingid{
+    text-align: center;
+}
+
+.heading{
+    text-align: center;
+    
+}
+
+.form_div{
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: rgb(251, 251, 251, 1);
+    padding: 10px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    overflow: hidden;
+}
+
+
+.form_div input{
+    margin-top: 10px;
+    
+}
+
+
+.first_ten{
+    
+    display: inline-block;
+    width: 40%;
+    padding-top: 10px;
+
+}
+
+.next_five{
+    /* display: inline-block; */
+    width: 500px;
+    padding: 5px;
+
+   
+}
+
+.input_one{
+    width: 350px;
+    padding: 5px;
+}
+
+.confirmation{
+    margin-left:auto ;
+    margin-right: auto;
+    width: 50%;
+    height: 200px;
+    
+}
+
+#subbuttondiv{
+    width: 100px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.subbutton{
+    width: 100px;
+    height: 40px;
+    background-color:rgb(37, 0, 62);
+    border: 1px solid rgb(37, 0, 62);
+    color: white;
+    border-radius: 3px;
+}
+
+.subbutton:hover{
+    background-color: white;
+    color: rgb(37, 0, 62);
+}
+
+.dropdowns{
+    width: 250px;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 3px;
+}
+

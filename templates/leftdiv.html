@@ -1,0 +1,41 @@
+
+
+
+{{ define "side_bar"}}
+    <div class="side_bar">
+        <ul class="side_ul">
+            <li>
+            <a  href="/programcards?out={{ .Admin.ID}}" class="dashbuttons" style="text-decoration: none; text-align: center; display: block; width: 90%; height: 40px;">Programs</a>
+            </li>
+
+            <li>
+                <a  href="/acamsstudentdata?out={{ .Admin.ID}}" class="dashbuttons" style="text-decoration: none; text-align: center; display: block; width: 90%; height: 40px;">Students</a>
+            </li>
+            <li>
+                <a  href="/adminMessages?out={{ .Admin.ID}}" class="dashbuttons" style="text-decoration: none; text-align: center; display: block; width: 90%; height: 40px;">Messages</a>
+
+            <li>
+                <a  href="/adminNews?out={{ .Admin.ID}}" class="dashbuttons" style="text-decoration: none; text-align: center; display: block; width: 90%; height: 40px;">News</a>
+                
+            </li>
+            <li>
+                <a  href="/k?out={{ .Admin.ID}}" class="dashbuttons" style="text-decoration: none; text-align: center; display: block; width: 90%; height: 40px;">Lecturers</a>
+            </li>
+            <li>
+                <a  href="/get_matrics?out={{ .Admin.ID}}" class="dashbuttons" style="text-decoration: none; text-align: center; display: block; width: 90%; height: 40px;">Matrics</a>
+            </li>
+        <hr>
+            <li><button class="dashbuttons" style="text-decoration: none; text-align: center; display: block; width: 90%; height: 40px;">Store</button></li>
+            
+
+        </ul>
+        
+    </div>
+
+    
+
+
+    
+
+
+{{ end }}

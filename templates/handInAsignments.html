@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/studentportal.css?v=3.5">
+    <link rel="stylesheet" href="/assets/css/video.css?v=1.6">
+    <link rel="stylesheet" href="/assets/css/messages.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/studentdata.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/cource_assesment.css?v=1.0">
+    {{ template "sitelogimage" }}
+    
+   
+
+    <title>Student Dash Board</title>
+    <script src="/assets/htmx.js"></script>
+    <style>
+        
+        .toUpload{
+            width: 150px;
+            height: 30px;
+            color: white;
+            background-color: rgb(32, 0, 62);
+            border: solid 1px rgb(32, 0, 62);
+            margin-top: 5px;
+        }
+
+        .toUpload:hover{
+            color: rgb(32, 0, 62);
+            background-color: whitesmoke;
+        }
+        .closeBtn1:hover{
+            color: rgb(32, 0, 62);
+            background-color: whitesmoke;
+        }
+
+        .tableBody{
+            width: 100%;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    {{template "HeaderStudent" .}}
+    
+    <main id="mainpage" class="main_div">
+       
+
+        <div class="assesment_box">
+
+            <div class="tableBody">
+                <table class="assesment_table">
+                    <thead>
+
+                    <tr>
+                        <th>Assesment Title</th>
+                        <th>Grade</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {{ range .Assesment}}
+
+                            <tr>
+                                <td>{{ .Assesment_Title }}</td>
+                                <td>{{ .Grade}}</td>
+                                <td>{{ .Comment }}</td>
+                    
+                            </tr>
+
+                        {{ end }}
+
+                    
+                    </tbody>
+            
+                </table>
+            </div>
+            
+            <div>
+                <form enctype="multipart/form-data" 
+                hx-post = "/assesmentsubmit?cource_name={{.Cource_Name}}&uuid={{.Student_UUID}}" 
+                hx-target="#filesaved"
+                hx-swap = "innerHTML"
+                action="/upload" method="post">
+                <input type="file" name="file" accept=".pdf">
+
+                <input type="submit" value="Upload" class="toUpload">  
+                </form>
+            </div>
+            
+            <div id="filesaved"> 
+            
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+    {{ define "fileduploaded"}}
+        
+         <p class="issaved" hx-trigger="load" >
+            File Uploaded Succesfully
+        </p>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.issaved').remove();
+            }, 2000);
+            </script>
+    
+    {{ end }}
+
+    
+    
+   
+</body>

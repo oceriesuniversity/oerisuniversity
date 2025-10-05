@@ -1,0 +1,128 @@
+
+*{
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mainnewsdiv{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    background-color: rgb(251, 251, 251);
+    border-radius: 5px;
+    margin-top: 45px;
+    display: flex;
+    justify-self: start;
+    
+}
+
+/* Left */
+
+.left{
+    width: 80%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+
+.newsarticle{
+    width: 100%;
+    height: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+}
+
+.newsimagediv{
+    width: 100%;
+    height: fit-content;
+    
+}
+
+.newsimage{
+    width: 100%;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.newsheader{
+    width: 100%;
+    height: fit-content;
+    padding: 20px;
+    text-align: center;
+}
+
+.newsheadertext{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: lighter;
+    font-style: normal;
+    text-decoration: underline;
+    font-size: 3em;
+    
+}
+
+
+.newscontent {
+    width: 100%;
+    height: fit-content;
+    margin-top: 10px;
+    padding: 30px;
+}
+
+.newsparagraphs{
+    padding-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: lighter;
+    font-size: 1.2em;
+}
+
+.authername{
+    font-weight: lighter;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+}
+
+
+/* RIGHT */
+
+.right{
+    width: 20%;
+    height: 80vh;
+    overflow-y: scroll;
+    display: inline-block;
+    top: 60px;
+   
+
+}
+
+.news{
+    font-weight: lighter;
+    text-decoration: underline;
+   
+}
+
+.newssample{
+    height: 230px;
+    width: 100%;
+    margin-bottom: 10px;
+    overflow-y: hidden;
+    border: solid 1px black;
+    
+}
+
+.newssummary{
+    font-weight: lighter;
+    font-size: .9em;
+    height: 150px;
+    overflow-y: hidden;
+    padding: 3px;
+    background-color: rgba(251, 251, 251, .7);
+        
+}
+
+.spacefiller{
+    width: 90%;
+    height: 100px;
+}

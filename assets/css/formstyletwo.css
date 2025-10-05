@@ -1,0 +1,91 @@
+
+
+
+
+
+.heading{
+    text-align: center;
+    color: rgb(37, 0, 62);
+}
+
+
+.logdiv{
+    background-color: rgba(251, 251, 251, .8);
+    border: 2px solid white;
+    border-radius: 9px;
+    margin-top: 10%;
+    width: 35%;
+    height: 300px;
+    margin-top: 12%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+
+}
+
+
+
+
+.subbtn{
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    padding: auto;
+
+}
+
+
+.ctinput{
+    height: 2em;
+    font-size: 1em;
+    border: 1px solid white;
+    border-radius: 5px;
+	
+
+}
+
+.ctsubbtn{
+    width: 100px;
+    height: 40px;
+    color: white;
+    border: 2px solid rgb(37, 0, 62);
+    border-radius: 3px;
+    background-color: rgb(37, 0, 62);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ctsubbtn:hover {
+    background-color: white;
+    color:rgb(37, 0, 62);
+}
+
+.ctlabel{
+    font-size: 1.3em;
+    color: rgb(37, 0, 62);
+    
+}
+
+.header-link{
+    text-align: center;
+    text-decoration: none;
+}
+
+
+a {
+    color: rgb(37, 0, 62);
+    font-family: Custom-one;
+
+}
+
+a:active{
+    color: rgb(37, 0, 62);
+}
+
+@media screen and (max-width: 800px){
+    .logdiv{
+        width: 70%;
+    }
+}
+    

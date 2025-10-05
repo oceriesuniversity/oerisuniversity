@@ -1,0 +1,181 @@
+
+.heading_hidden{
+	display: none;
+    background-color: rgb(32, 0, 62);
+    width: 100%;
+    height: 50%;
+    padding-bottom: 5px;
+    padding: 15px;
+	font-size: .9;
+
+}
+
+.lefthiddennews{
+	display: none;
+	position: fixed;
+	left: 200px;
+	top: 140px;
+	width: 200px;
+	height: 650px;
+	overflow-y: auto;
+	background-color: rgba(32, 0, 62, .6);
+	
+}
+
+.hiddenmsglog{
+	display: none;
+	position: fixed;
+	left: 0px;
+	top: 140px;
+	width: 200px;
+	height: 650px;
+	overflow-y: auto;
+	background-color: rgba(32, 0, 62, .6);
+	z-index: 1000;
+	
+	
+}
+
+.openMsgDiv{
+	display: none;
+}
+
+.openMsg{
+	width: 50px;
+	height: 35px;
+	position: fixed;
+	top: 145px;
+	z-index: 1000;
+	background-color: rgb(31, 0, 62);
+	border: solid 1px rgb(31, 0, 62);
+	border-radius: 3px;
+	color: white;
+}
+
+.openMsg img{
+	width: 30px;
+	height: 30px;
+}
+
+.hiddenmsglog.open{
+	display: block;
+	left: 0;
+}
+.hiddenmsglog.close{
+	left: -200px;
+}
+
+.hidden_main{
+	position: relative;
+    width: 100%;
+    min-height: 650px;
+    max-height: fit-content;
+    box-sizing: border-box;
+	padding: 5px;
+    padding-bottom: 70px;
+    display: none;
+	margin-bottom: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
+	z-index: 300px;
+}
+
+.pgcard{
+	text-align: center;
+    border: 1px solid gray;
+    border-radius: 3px;
+    width: 270px;
+    height: 350px;
+    margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 10px;
+    box-shadow: 10px 0 10px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+
+}
+
+
+.closeMsg{
+	width: 100%;
+	height: 25px;
+	display: flex;
+	justify-content: end;
+	z-index: 1000;
+}
+
+.closeMsg button{
+	width: 40px;
+	height: 20px;
+	background-color: rgb(32, 0, 62);
+	border: solid 1px rgb(32, 0, 62);
+	border-radius: 3px;
+	color: white;
+}
+
+.closeMsg button:hover{
+	color: rgb(32, 0, 62);
+	background-color: white;
+}
+.pgcard ul{
+	list-style: none;
+}
+
+
+.navbartop{
+	display: flex;
+	justify-content: space-between;
+	overflow-x: scroll;
+}
+
+.navbartop a{
+	display: inline-block;
+	width: 50px;
+	height: 15px;
+	padding: 0px;
+	border-bottom: solid 1px white;
+}
+	
+	
+	
+ @media (max-width: 700px) {
+	 
+			.hiddenmsglog{
+				display: block;
+			}
+	 
+            .heading{
+				display: none;
+			}
+			.heading_hidden{
+				display: block;
+			}
+			.hidden_main{
+				display: block;
+			}
+			
+			.heading{
+				display: none;
+			}
+			
+			.side_bar{
+				
+				display: none;
+			}
+			.main{
+				display: none;
+			}
+			
+			.side_bar{
+				display: none;
+			}
+			
+			.openMsgDiv{
+				display:block;
+			}
+			
+			
+			
+        }

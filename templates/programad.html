@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Advancment</title>
+    {{ template "sitelogimage" }}
+    
+    <link rel="stylesheet" href="/assets/css/programad.css?v=1.5">
+    <script src="/assets/htmx.js"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+   
+    <div class="registrationapproval">
+        
+      
+        
+
+            
+            {{ if .}}
+
+            <div class="messageapproved">
+                <div class="messagetext">
+                    <h1>Congratuations</h1>
+                    <div class="checkmark">
+                        <img src="/assets/Images/check_purple.png" alt="check_purple">
+                    </div>
+                    <p>Application for advancement was successfull</p>
+                    <p>ensure all payments are paid in full or you have applied for a staged payment scheme to continue with your studies</p>
+                </div>
+                
+            
+            </div>
+
+            {{ else}}
+
+            <div class="messagerejected">
+        
+
+                <div class="message">
+                    <h1>Oops</h1>
+
+                    <div class="checkmark">
+                        <img src="/assets/Images/check_purple.png" alt="check_purple">
+                    </div>
+                    
+                    <p>Please ensure that you have completed the prevoius program before you progress with your studies.</p>
+                </div>
+                
+            </div>
+
+        {{end}}
+
+        
+       
+
+        
+    </div>
+</body>
+</html>

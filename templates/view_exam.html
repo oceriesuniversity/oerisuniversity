@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="view_exam.css">
+</head>
+<body>
+    <div class="details">
+        <table>
+            <tbody>
+                <tr>
+                    <th class="title">Program</th>
+                    <td>{{ .Program_Name}}</td>
+                </tr>
+                <tr>
+                    <th class="title">Cource Name</th>
+                    <td>{{ .Cource_Name}}</td>
+
+                </tr>
+                <tr>
+                    <th class="title">Cource Code</th>
+                    <td>{{ .Cource_Code }}</td>
+                </tr>
+            
+                <tr>
+                    <th class="title">Total  Marks</th>
+                    <td>{{ .Total_Marks}}</td>
+                </tr>
+                
+                <tr>
+                    <th class="title">Student Name</th>
+                    <td>{{ .Student_Name}}</td>
+                </tr>
+
+                <tr>
+                    <th class="title">Attempt Number</th>
+                    <td>{{ .Attempt_Number}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="questions">
+        <div class="mark_question">
+            <p><span>{{ .Question_Number}}.{{ .Question}} </span></p>
+            <p>{{ .Answer}} <span> Correct <input type="checkbox"> </span> <span> Wrong <input type="checkbox"></span></p>
+        </div>
+
+        <div class="mark_question">
+            <p><span>{{ .Question_Number}}.{{ .Question}} </span></p>
+            <p style="text-decoration: underline;">Answer</p>
+            <p>{{ .Answer}}</p>
+            <label for="">Grade</label>
+            <input type="text" name="grade">
+        </div>
+    
+
+    </div>
+
+    <div class="record_results">
+
+    </div>
+
+    {{ define "question_answers_sa"}}
+        <div class="mark_question">
+        <p><span>{{ .Question_Number}}.{{ .Question}} </span></p>
+        <p>Answer: {{ .Answer}} <span> Correct <input type="checkbox"> </span> <span> Wrong <input type="checkbox"></span></p>
+        </div>
+    {{ end }}
+
+
+    {{ define "question_answers_sb" }}
+
+    <div class="mark_question">
+        <p><span>{{ .Question_Number}}.{{ .Question}} </span></p>
+        <p style="text-decoration: underline;">Answer</p>
+        <p>{{ .Answer}}</p>
+        <label for="">Grade</label>
+        <input type="text" name="grade">
+    </div>
+
+    {{ end }}
+    
+</body>
+</html>

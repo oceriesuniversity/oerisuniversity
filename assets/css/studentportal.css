@@ -1,0 +1,253 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.header_nav{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 12vh;
+    background-color: rgb(32, 0, 67);
+    padding: 10px;
+    margin-left: auto;
+    margin-right:auto ;
+
+}
+
+.program_table{
+    overflow-x: scroll;
+}
+.watch_video_link {
+    text-decoration: underline;
+    color: rgb(32, 0, 67);
+}
+
+
+.watch_video_link:hover{
+    cursor: pointer;
+    color: rgb(94, 4, 190);
+}
+
+.student_nav{
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
+}
+.cource_approved{
+    background-color: rgb(32, 0, 67);
+    border-radius: 3px;
+    border: solid 1px rgb(32, 0, 67);
+    color: white;
+    width: 80px;
+}
+
+
+.cource_apply_btn {
+    border: solid 1px rgb(32, 0, 67);
+    color: rgb(32, 0, 67);
+    background-color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.cource_apply_btn:hover{
+    border: solid 1px rgb(32, 0, 67);
+    color: white;
+    background-color: rgb(32, 0, 67);
+    border-radius: 3px;
+}
+
+
+.header_nav a{
+    
+    display: inline-block;
+    color: white;
+    position: relative;
+    margin-bottom: 0%;
+    text-decoration: none;
+
+}
+
+.user_infor{
+    display: flex;
+    height: 100%;
+    width: 500px;
+}
+
+
+.student_name{
+    display: inline-block;
+    color: white;
+    margin-left: 2%;
+    
+}
+
+
+.user_image{
+    width: 50px;
+    display: inline-block;
+    
+}
+
+.image_div{
+    display: inline-block;
+    
+}
+
+.accountfunctions{
+    display: inline-block;
+    width: fit-content;
+}
+
+.accountfunctions p{
+    display: inline-block;
+    margin-left: 5px;
+    border-bottom:1px solid white;
+    text-decoration: none;
+    padding: 2px;
+}
+
+.accountfunctions p:Hover{
+    border-bottom: 1px solid rgb(94, 4, 190);
+}
+
+
+.main_div{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+      
+}
+
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    border-collapse: collapse;
+    text-align: center;
+    overflow-x: scroll;
+    
+    
+}
+
+
+
+table th{
+    width: 200px;
+
+}
+
+th, tr{
+    border-bottom: 1px solid gray;
+}
+
+tr td{
+    width: 150px;
+}
+
+table tr:nth-child(even) a{
+    color: white;
+    text-decoration: none;
+}
+
+table tr:nth-child(even){
+    background-color: rgba(32, 0, 67,.7);
+    color: white;
+}
+
+table tr:nth-child(odd) a{
+    color: black;
+}
+
+table tr:nth-child(even) a:hover{
+    text-decoration: underline;
+}
+
+table tr:nth-child(odd) a:hover{
+    text-decoration: underline;
+}
+
+
+.proceed_div{
+    display: flex;
+    justify-content: end;
+    height: 60px;
+    width:70%;
+    margin-left:auto;
+    margin-top: 20px;
+    margin-right: auto;
+}
+
+.proceed_btn{
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    background-color: rgb(32, 0, 67);
+    width: 150px;
+    border: 1px solid rgb(32, 0, 67);
+    border-radius: 5px;
+    height: 40px;
+    padding: 5px;
+    display: inline-block;
+    
+}
+
+
+
+.proceed_btn:hover{
+    background-color: white;
+    color: rgb(32, 0, 67);
+}
+
+
+.programs{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.program_name{
+    text-align: center;
+}
+
+.confirmregistration{
+    position: relative;
+    width: 50%;
+    height: 45vh;
+    border: 1px solid rgb(32, 0, 67);
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.confirmregistration h2{
+    text-align: center;
+}
+
+.oops_header{
+    text-align: center;
+}
+
+.btnbottom{
+    position: relative;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    
+}
+
+.proceed_bottom{
+    height: 50px;
+}

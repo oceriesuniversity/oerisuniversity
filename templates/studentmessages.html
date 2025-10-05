@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/studentportal.css?v=3.5">
+    <link rel="stylesheet" href="/assets/css/video.css?v=1.6">
+    <link rel="stylesheet" href="/assets/css/messages.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/studentdata.css?v=1.0">
+    <link rel="stylesheet" href="/assets/css/cource_assesment.css?v=1.0">
+
+    {{ template "sitelogimage" }}
+    
+
+    <title>Student Dash Board</title>
+    <script src="/assets/htmx.js"></script>
+</head>
+<body>
+    {{template "HeaderStudent" .}}
+    
+    <div>
+        <div class="message_box" >
+           
+            <div class="messages" id="messageslist" style="height: 85%;">
+            
+            
+            {{ range .MsgBody }}
+
+                    {{ if .Sender }}
+                        {{ template "right" .}}
+                    {{else}}
+                        {{template "left" .}}
+
+                    {{end}}
+                    
+            {{end}}
+
+            </div>
+        
+            <div class="message_writer" style="height: 15%; display: inline-block; padding:10px;">
+                <form hx-post="/sendmessage?student_uuid={{.StInfo.UUID}}&from=student"
+                    hx-target="#messageslist"
+                    hx-swap="beforeend"
+                    hx-on::after-request="this.reset()">
+                    <input type="text" placeholder="Message" name="message_content" class="write_message" style="width: 80%; padding-left: 5px; display: inline;">
+                    <button type="submit" class="send_message_btn" style="display: relative;display: inline; ">Submit</button>
+                </form>
+            </div>
+        
+        </div>
+
+    </div>
+    
+    <div class="hidden" id="hidden">
+
+    </div>
+
+      
+
+    
+   
+</body>
+
+<footer>
+    {{ template "footer"}}
+</footer>
+</div>
+</html>

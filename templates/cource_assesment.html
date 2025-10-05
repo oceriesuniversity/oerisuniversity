@@ -1,0 +1,136 @@
+
+		
+	 	{{ define "adminGradeAssesments"}}
+		<div class="assesment_box">
+
+            <div>
+				<table class="assesment_table" style="margin: auto; height: 130px;">
+					<thead>
+
+					<tr>
+						<th>Assesment Title</th>
+						<th>Grade</th>
+						<th>Comment</th>
+					</tr>
+					</thead>
+
+					<tbody>
+
+						{{ range .Assesment}}
+
+							<tr>
+								<td>{{ .Assesment_Title }}</td>
+								<td>{{ .Grade}}</td>
+								<td>{{ .Comment }}</td>
+					
+							</tr>
+
+						{{ end }}
+
+					
+				</tbody>
+				</table>
+			</div>
+            
+			
+			<div>
+				<h3>Assignments Handed In </h3>
+				{{ range .Handed}}
+					<a href="/downloadassignment?cource_name{{ .Cource_Name}}&student_uuid{{ .Student_UUID}}&file_name{{.FileName}}>{{.FileName}}"</a>
+				{{ end }}
+			</div>
+
+            <div>
+                <form enctype="multipart/form-data" 
+				hx-post = "assesmentsubmit?cource_name={{ .Cource_Name}}&uuid={{ .Student_UUID}}" 
+				hx-target="#filesaved"
+				hx-swap = "innerHTML"
+				action="/upload" method="post">
+				<input type="file" name="file" accept=".pdf">
+				<input type="submit" value="Upload" style="width: 100px; height: 25px; padding-top: 4px;">  
+				</form>
+            </div>
+			
+			<div id="filesaved" class="fileuploaded" style="width: 100%; margin: 5px; height: 50px;"> 
+			
+			</div>
+        </div>
+
+
+    
+		
+	 </div>
+
+	 {{ end }}
+	  
+
+	
+	
+
+
+
+
+
+{{ define "grade_tr"}}
+
+    <tr>
+    <td>.Assesment_Title</td>
+    <td>.Assesment_Grade</td>
+    <td>.Assesment_Comment</td>
+    <td><a href="/deleteassesmentresults?uuid={{ .UUID}}" style="text-decoration: underline; cursor: pointer;"></a>Delete</td>
+
+    </tr> 
+
+
+
+
+{{ end }}
+
+{{ define "grade_assingment"}}
+
+<div class="grade_div">
+    <div class="assingment_name">Assesment</div>
+    
+    <div class="assingment_form_in">
+        <form action="/grade_assingment">
+            <input class="assesment_input" type="text" name="grade" placeholder="Enter Grade">
+            <input class="assesment_input" type="text" placeholder="Enter Remarks">
+            
+            <select class="select_input" name="passed" id="">
+                <option value="passed">
+                    Passed
+                </option>
+                <option value="rewrite">Rewrite</option>
+            </select>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+{{ end }}
+
+
+{{ define "fileuploaded"}}
+	<div class="saved" hx-trigger="load" >
+            File Uploaded Successffuly
+        </div>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.fileuploaded').remove();
+            }, 2000);
+         </script>
+
+{{ end }}
+
+
+
+
+
+
+
+
+
+
+
+
+
